@@ -1,0 +1,55 @@
+.row
+  .col-md-12
+    .col-md-4
+      %h2 Bookings Summary
+      %table.table.table-striped.table-responsive
+        %tr
+          %th Total # active bookings
+          %td=@bookings.where(release_date_time: nil).count
+    .col-md-4
+      %h2 Charges Summary
+      %table.table.table-striped.table-responsive
+        %tr
+          %th
+          %td=@bookings.where(release_date_time: nil).count
+  .col-md-12
+  %h2 All Bookings
+
+  %table.table.table-striped.table-responsive
+    %tr
+      %th Name
+      %th Booked At
+      %th Released At
+      %th Case Number
+      %th Charge
+      %th Bond Amount
+    - @bookings.each do |b|
+      %tr
+        %td="#{b.first_name} #{b.last_name}"
+        %td=b.booking_date_time.strftime("%m-%d-%y  %k:%M")
+        - if !b.release_date_time.nil?
+          %td=b.release_date_time.strftime("%m-%d-%y  %k:%M")
+        - else
+          %td
+        %td
+        %td
+        %td
+      - Charge.where(booking_id: b.jms_id).each do |c|
+        %tr
+          %td
+          %td
+          %td
+          %td=c.court_case_number
+          %td="#{c.code} -- #{c.category} #{c.description}"
+          %td
+        - Bond.where(charge_id: c.jms_id).each do |d|
+          %tr
+            %td
+            %td
+            %td
+            %td
+            %td
+            %td=number_to_currency(d.amount, precision: 2)
+
+
+
