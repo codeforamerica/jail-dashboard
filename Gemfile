@@ -1,8 +1,7 @@
-source 'https://rubygems.org'
-
-
+source 'http://rubygems.org'
+gem 'ruby_dep', '~>1.3.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.0'
+gem 'rails', '4.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use HAML instead of ERB
@@ -27,8 +26,13 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# TZinfo for windows time zone error
+gem 'tzinfo-data'
+
 # Use activerecord-import for bulk inserts from flat file
 gem 'activerecord-import'
+
+gem 'coffee-script-source', '1.8.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

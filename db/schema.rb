@@ -15,15 +15,16 @@ ActiveRecord::Schema.define(version: 20161031201631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "adminpack"
 
-  create_table "bonds", force: :cascade do |t|
+  create_table "bonds", force: true do |t|
     t.string   "charge_id"
     t.float    "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "bookings", force: :cascade do |t|
+  create_table "bookings", force: true do |t|
     t.string   "jms_id"
     t.datetime "booking_date_time"
     t.datetime "release_date_time"
@@ -41,7 +42,7 @@ ActiveRecord::Schema.define(version: 20161031201631) do
     t.datetime "updated_at",        null: false
   end
 
-  create_table "charges", force: :cascade do |t|
+  create_table "charges", force: true do |t|
     t.string   "jms_id"
     t.string   "booking_id"
     t.string   "code"
