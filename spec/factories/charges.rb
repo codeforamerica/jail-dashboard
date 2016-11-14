@@ -2,7 +2,7 @@ require 'faker'
 
 FactoryGirl.define do
   factory :charge do |f|
-    f.jms_id "12345"
+    f.jms_charge_id "12345"
     f.booking_id "98765"
     f.code "02015"
     f.description "theft"

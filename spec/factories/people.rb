@@ -2,7 +2,7 @@ require 'faker'
 
 FactoryGirl.define do
   factory :person do |f|
-    f.jms_id "11235"
+    f.jms_person_id "11235"
     f.first_name Faker::Name.first_name
     f.middle_name Faker::Name.first_name
     f.last_name Faker::Name.last_name
