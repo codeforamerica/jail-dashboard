@@ -1,7 +1,7 @@
 development: &default
   adapter: postgresql
   encoding: unicode
-  database: postgres
+  database: jail_dashboard_dev
   pool: 5
   username: postgres
   password: postgres

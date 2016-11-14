@@ -1,7 +1,6 @@
-require 'spec_helper'
 require 'rails_helper'
 
-describe Charge do
+RSpec.describe Charge, type: :model do
   it "has a valid factory" do
     FactoryGirl.create(:charge).should be_valid
   end
