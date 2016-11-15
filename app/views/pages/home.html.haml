@@ -1,55 +1,128 @@
 .row
   .col-md-12
     .col-md-4
-      %h2 Bookings Summary
+      %h3 People Summary
+      %br
+      %table.table.table-striped.table-responsive
+        %tr
+          %th Total # people in system
+          %td=@people.count
+      %h4 Gender
+      %table.table.table-striped.table-responsive
+        -@people.group_by(&:gender).each do |gender, people|
+          %tr
+            %th=gender
+            %td=people.count
+      %h4 Race
+      %table.table.table-striped.table-responsive
+        -@people.group_by(&:race).each do |race, people|
+          %tr
+            %th=race
+            %td=people.count
+    .col-md-4
+      %h3 Bookings Summary
+      %br
       %table.table.table-striped.table-responsive
         %tr
           %th Total # active bookings
           %td=@bookings.where(release_date_time: nil).count
     .col-md-4
-      %h2 Charges Summary
+      %h3 Bonds Summary
+      %br
       %table.table.table-striped.table-responsive
         %tr
-          %th
-          %td=@bookings.where(release_date_time: nil).count
-  .col-md-12
-  %h2 All Bookings
-
-  %table.table.table-striped.table-responsive
-    %tr
-      %th Name
-      %th Booked At
-      %th Released At
-      %th Case Number
-      %th Charge
-      %th Bond Amount
-    - @bookings.each do |b|
-      %tr
-        %td="#{b.first_name} #{b.last_name}"
-        %td=b.booking_date_time.strftime("%m-%d-%y  %k:%M")
-        - if !b.release_date_time.nil?
-          %td=b.release_date_time.strftime("%m-%d-%y  %k:%M")
-        - else
-          %td
-        %td
-        %td
-        %td
-      - Charge.where(booking_id: b.jms_id).each do |c|
-        %tr
-          %td
-          %td
-          %td
-          %td=c.court_case_number
-          %td="#{c.code} -- #{c.category} #{c.description}"
-          %td
-        - Bond.where(charge_id: c.jms_id).each do |d|
+          %th Average bond amount
+          %td=number_to_currency(@bonds.average('amount'), precision: 2)
+    .col-md-4
+      %h3 Charges Summary
+      %br
+      %h4 By Category
+      %table.table.table-striped.table-responsive
+        -@charges.group_by(&:category).each do |category, charges|
           %tr
-            %td
-            %td
-            %td
-            %td
-            %td
-            %td=number_to_currency(d.amount, precision: 2)
+            %th=category
+            %td=charges.count
+      %h4 By Type
+      %table.table.table-striped.table-responsive
+        -@charges.group_by(&:description).each do |description, charges|
+          %tr
+            %th=description
+            %td=charges.count
 
-
-
+  .col-md-12
+    %h3 Table Dumps (For Validation)
+    .col-md-6
+      %h4 All People
+      .tidy
+        %table.table.table-striped.table-responsive
+          %tr
+            %th Person ID
+            %th First Name
+            %th Middle Name
+            %th Last Name
+            %th DOB
+            %th Gender
+            %th Race
+          - @people.each do |p|
+            %tr
+              %td=p.jms_person_id
+              %td=p.first_name
+              %td=p.middle_name
+              %td=p.last_name
+              %td=p.date_of_birth.strftime("%m-%d-%y  %k:%M")
+              %td=p.gender
+              %td=p.race
+    .col-md-6
+      %h4 All Bookings
+      .tidy
+        %table.table.table-striped.table-responsive
+          %tr
+            %th Booking ID
+            %th Booked At
+            %th Released At
+            %th Inmate Number
+            %th Facility Name
+            %th Cell ID
+            %th Status
+          - @bookings.each do |b|
+            %tr
+              %td=b.jms_booking_id
+              %td=b.booking_date_time.strftime("%m-%d-%y  %k:%M")
+              - if !b.release_date_time.nil?
+                %td=b.release_date_time.strftime("%m-%d-%y  %k:%M")
+              - else
+                %td
+              %td=b.inmate_number
+              %td=b.facility_name
+              %td=b.cell_id
+              %td=b.status
+    .col-md-6
+      %h4 All Charges
+      .tidy
+        %table.table.table-striped.table-responsive
+          %tr
+            %th Charge ID
+            %th Booking ID
+            %th Charge Code
+            %th Charge Description
+            %th Charge Category
+            %th Court Case Number
+          - @charges.each do |c|
+            %tr
+              %td=c.jms_charge_id
+              %td=c.booking_id
+              %td=c.code
+              %td=c.description
+              %td=c.category
+              %td=c.court_case_number
+    .col-md-6
+      %h4 All Bonds
+      .tidy
+        %table.table.table-striped.table-responsive
+          %tr
+            %th Charge ID
+            %th Amount
+          - @bonds.each do |b|
+            %tr
+              %td=b.charge_id
+              %td=number_to_currency(b.amount, precision: 2)

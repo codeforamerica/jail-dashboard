@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+ .tidy {
+  height: 600px;
+  overflow: scroll;
+ }
