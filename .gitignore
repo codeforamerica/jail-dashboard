@@ -17,3 +17,6 @@
 
 # Ignore Apple metadata files
 .DS_Store
+
+# Ignore rbenv metadata files
+.ruby-version
