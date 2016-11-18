@@ -7,7 +7,9 @@
 
 ## From the Jail Management System or other internal data sources
 
-Scheduled Extract-Transform-Load (**ETL**) scripts collect the data below from the agency's JMS multiple times every day. Data for historical visualizations is generated and stored on import. Historical data for visualizations can be backfilled by manually running the ETL scripts with appropriate date ranges.
+Scheduled Extract-Transform-Load (**ETL**) scripts collect the data below from the agency's JMS multiple times every day. Data for historical visualizations is generated and stored on import. Historical data for visualizations can be backfilled by exporting JMS data with appropriate date ranges.
+
+Sample proposed data formats for this data are available in [CSV](/tmp/sample-data/csv), [JSON](/tmp/sample-data/json/people.json), and [XML](/tmp/sample-data/xml/people.xml) formats.
 
 1. [People](#people)
 2. [Bookings](#bookings)
@@ -16,7 +18,7 @@ Scheduled Extract-Transform-Load (**ETL**) scripts collect the data below from t
 
 ### People
 
-Individual records for people who are (/have been) in jail. Relatively static data that is unlikely to change as time passes or bookings are associated to a person.
+Individual records for people who are or have been in jail. This is relatively static data that is unlikely to change as time passes or bookings are associated to a person. We've included baseline data here, but other characteristics such as _education_, _occupation_, _language spoken_, or _military service status_ could be included if desired.
 
 Variable Name | Description | Example
 ------------- | ----------- | -------
@@ -55,15 +57,7 @@ code | Charge code | `38010`
 description | Charge description | `OPERATING ON SUSPENDED OR REVOKED OPERATORS LICENSE`
 category | Charge category | `MISDEMEANOR`
 court_case_number | Court case number | `13-M-006975`
-
-### Bonds
-
-Because multiple charges may be associated to a booking, different bond amounts may accompany those charges.
-
-Variable Name | Description | Example
-------------- | ----------- | -------
-charge_id | Associated JMS charge ID | `98-1234-QQ`
-amount | Bond amount | `500.00`
+bond_amount | Bond amount | `500.00`
 
 ## From Data sources maintained by stakeholders
 
