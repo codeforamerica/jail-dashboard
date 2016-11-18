@@ -1,0 +1,157 @@
+[
+    {
+        "jms_person_id": "75-7329276",
+        "first_name": "Kathleen",
+        "middle_name": "Jessica",
+        "last_name": "McCoy",
+        "date_of_birth": "1942-09-14",
+        "gender": "Female",
+        "race": "Black or African American",
+        "bookings": [
+            {
+                "jms_booking_id": "9963688400",
+                "booking_date_time": "2015-02-07 06:28:10",
+                "release_date_time": "",
+                "inmate_number": "62-6029335",
+                "facility_name": "Spaight",
+                "cell_id": "05-6989422",
+                "status": "pre-trial",
+                "charges": [
+                    {
+                        "jms_charge_id": "58-2299516",
+                        "description": "Assault",
+                        "code": "13162",
+                        "category": "Felony",
+                        "court_case_number": "875317799-1",
+                        "bond_amount": "750.00"
+                    },
+                    {
+                        "jms_charge_id": "01-4640873",
+                        "description": "Non-Support",
+                        "code": "01401",
+                        "category": "Violation",
+                        "court_case_number": "047308407-4",
+                        "bond_amount": "250.00"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "jms_person_id": "50-8990741",
+        "first_name": "Ann",
+        "middle_name": "Janice",
+        "last_name": "Wheeler",
+        "date_of_birth": "1974-05-17",
+        "gender": "Female",
+        "race": "White",
+        "bookings": [
+            {
+                "jms_booking_id": "8716519790",
+                "booking_date_time": "2015-01-03 04:40:07",
+                "release_date_time": "2016-01-17 15:06:08",
+                "inmate_number": "46-5734400",
+                "facility_name": "Spaight",
+                "cell_id": "80-0159675",
+                "status": "sentenced",
+                "charges": [
+                    {
+                        "jms_charge_id": "56-1114620",
+                        "description": "Assault",
+                        "code": "13162",
+                        "category": "Misdemeanor",
+                        "court_case_number": "228242745-9",
+                        "bond_amount": "350.00"
+                    }
+                ]
+            },
+            {
+                "jms_booking_id": "5878380212",
+                "booking_date_time": "2014-03-18 23:36:08",
+                "release_date_time": "2015-11-11 03:53:23",
+                "inmate_number": "10-5085671",
+                "facility_name": "Spaight",
+                "cell_id": "83-7306637",
+                "status": "pre-trial",
+                "charges": [
+                    {
+                        "jms_charge_id": "46-4983730",
+                        "description": "Robbery",
+                        "code": "12002",
+                        "category": "Violation",
+                        "court_case_number": "532016581-1",
+                        "bond_amount": "500.00"
+                    },
+                    {
+                        "jms_charge_id": "64-4918408",
+                        "description": "Trespassing",
+                        "code": "10002",
+                        "category": "Ordinance",
+                        "court_case_number": "089750075-X",
+                        "bond_amount": "500.00"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "jms_person_id": "08-4989313",
+        "first_name": "Mark",
+        "middle_name": "Wayne",
+        "last_name": "Stone",
+        "date_of_birth": "1980-02-17",
+        "gender": "Male",
+        "race": "Hispanic",
+        "bookings": [
+            {
+                "jms_booking_id": "5480307615",
+                "booking_date_time": "2016-02-01 12:07:48",
+                "release_date_time": "2016-06-26 07:05:44",
+                "inmate_number": "95-0112494",
+                "facility_name": "Northview",
+                "cell_id": "91-2862343",
+                "status": "sentenced",
+                "charges": [
+                    {
+                        "jms_charge_id": "25-3032028",
+                        "description": "Theft",
+                        "code": "23301",
+                        "category": "Misdemeanor",
+                        "court_case_number": "548818756-1",
+                        "bond_amount": "750.00"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "jms_person_id": "63-4066215",
+        "first_name": "Jimmy",
+        "middle_name": "Robert",
+        "last_name": "Armstrong",
+        "date_of_birth": "1972-10-19",
+        "gender": "Male",
+        "race": "American Indian",
+        "bookings": [
+            {
+                "jms_booking_id": "2805051671",
+                "booking_date_time": "2016-03-27 07:08:02",
+                "release_date_time": "",
+                "inmate_number": "55-8159408",
+                "facility_name": "Warner",
+                "cell_id": "96-1170191",
+                "status": "pre-trial",
+                "charges": [
+                    {
+                        "jms_charge_id": "71-0045061",
+                        "description": "DUI",
+                        "code": "02620",
+                        "category": "Misdemeanor",
+                        "court_case_number": "244672052-8",
+                        "bond_amount": "800.00"
+                    }
+                ]
+            }
+        ]
+    }
+]
