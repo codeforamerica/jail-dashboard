@@ -5,7 +5,7 @@ development: &default
   pool: 5
   username: postgres
   password: postgres
-  host: db
+  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
 
 test:
   <<: *default
