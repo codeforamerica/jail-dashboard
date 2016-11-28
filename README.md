@@ -18,5 +18,5 @@ Run:
 ```
 ./bin/docker-compose up
 ./bin/docker-compose run web rake db:create db:migrate
-./bin/docker-compose run web rake db:seed
+./bin/docker-compose run web rake people:import bookings:import bonds:import charges:import
 ```
