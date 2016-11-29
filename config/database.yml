@@ -7,6 +7,10 @@ development: &default
   password: postgres
   host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
 
+# test:
+#   <<: *default
+#   database: jail_dashboard_test
+
 test:
-  <<: *default
-  database: jail_dashboard_test
+  adapter: postgresql
+  database: travis_ci_test
