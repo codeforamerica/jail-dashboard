@@ -5,5 +5,6 @@ class Booking < ActiveRecord::Base
 
   validates :person_id, presence: true
 
+  scope :active, -> { where(release_date_time: nil) }
 end
 
