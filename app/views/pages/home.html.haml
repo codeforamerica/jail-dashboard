@@ -27,13 +27,6 @@
           %th Total # active bookings
           %td=@bookings.where(release_date_time: nil).count
     .col-md-4
-      %h3 Bonds Summary
-      %br
-      %table.table.table-striped.table-responsive
-        %tr
-          %th Average bond amount
-          %td=number_to_currency(@bonds.average('amount'), precision: 2)
-    .col-md-4
       %h3 Charges Summary
       %br
       %h4 By Category
@@ -107,6 +100,7 @@
             %th Charge Description
             %th Charge Category
             %th Court Case Number
+            %th Bond Amount
           - @charges.each do |c|
             %tr
               %td=c.jms_charge_id
@@ -115,14 +109,4 @@
               %td=c.description
               %td=c.category
               %td=c.court_case_number
-    .col-md-6
-      %h4 All Bonds
-      .tidy
-        %table.table.table-striped.table-responsive
-          %tr
-            %th Charge ID
-            %th Amount
-          - @bonds.each do |b|
-            %tr
-              %td=b.charge_id
-              %td=number_to_currency(b.amount, precision: 2)
+              %td=number_to_currency(c.bond_amount, precision: 2)

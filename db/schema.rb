@@ -11,17 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161114231638) do
+ActiveRecord::Schema.define(version: 20161130063632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "bonds", force: true do |t|
-    t.string   "charge_id"
-    t.float    "amount"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "bookings", force: true do |t|
     t.string   "jms_booking_id"
@@ -45,6 +38,7 @@ ActiveRecord::Schema.define(version: 20161114231638) do
     t.string   "court_case_number"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.float    "bond_amount"
   end
 
   create_table "people", force: true do |t|
