@@ -3,6 +3,5 @@ class PagesController < ApplicationController
     @people = Person.all
     @bookings = Booking.all
     @charges = Charge.all
-    @bonds = Bond.all
   end
 end
