@@ -8,5 +8,6 @@ FactoryGirl.define do
     f.description "theft"
     f.category "misdemeanor"
     f.court_case_number "13579-ABC"
+    f.bond_amount 250.00
   end
 end
