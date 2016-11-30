@@ -7,7 +7,7 @@ namespace :charges do
       puts "reading charges"
       # This is a temporary path for the CSV; just wanted to get things up and running, will replace once ETL process more clearly defined
       charges = CSV.read("#{Rails.root}/tmp/charges.csv")
-      columns = [:jms_charge_id, :booking_id, :description, :code, :category, :court_case_number]
+      columns = [:jms_charge_id, :booking_id, :description, :code, :category, :court_case_number, :bond_amount]
       Charge.import columns, charges, validate: false
       puts "charges imported"
     end
