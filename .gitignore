@@ -21,3 +21,4 @@
 # Ignore rbenv metadata files
 .ruby-version
 .env
+node_modules/*

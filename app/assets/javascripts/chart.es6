@@ -65,6 +65,8 @@ $(document).ready( function() {
   var reverseLookup = function(objOriginal, comparedValue) {
     var values = Object.values(objOriginal);
 
+    console.log(values);
+
     var index = values.indexOf(comparedValue);
 
     return Object.keys(objOriginal)[index];
