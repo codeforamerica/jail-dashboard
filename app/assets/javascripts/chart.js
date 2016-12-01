@@ -11,7 +11,7 @@ $(document).ready( function() {
       .attr('height', height + margin.top + margin.bottom)
       .attr('width', width + margin.left + margin.right)
     .append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+      .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
   var xScale = d3.scaleLinear()
           .domain([0, hardCap])
@@ -30,6 +30,6 @@ $(document).ready( function() {
   var xAxis = d3.axisBottom(xScale);
 
   svg.append('g')
-    .attr('transform', `translate(0, ${height})`)
+    .attr('transform', 'translate(0, ' + height + ')')
       .call(xAxis);
 } );
