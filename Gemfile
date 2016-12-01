@@ -65,7 +65,7 @@ end
 group :test do
   gem 'faker'
   gem 'capybara'
-  gem 'selenium-webdriver'
+  gem 'poltergeist'
   gem 'guard-rspec'
   gem 'launchy'
 end
