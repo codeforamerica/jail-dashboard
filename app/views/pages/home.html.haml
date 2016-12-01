@@ -1,6 +1,10 @@
 .row
   .col-md-12
-    .chart{ data: { hard_cap: 400, active_bookings: @active_bookings.count }}
+    .chart{ data: { soft_cap: ENV.fetch("CAPACITY_SOFT_CAP"),
+      red_zone_start: ENV.fetch("CAPACITY_RED_ZONE_START"),
+      hard_cap: ENV.fetch("CAPACITY_HARD_CAP"),
+      max_population: ENV.fetch("CAPACITY_MAX_POPULATION"),
+      active_bookings: @active_bookings.count }}
 
     .col-md-4
       %h3 People Summary

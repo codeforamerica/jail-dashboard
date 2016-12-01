@@ -1,7 +1,13 @@
-.chart {
-  rect {
-    fill: white;
-    stroke: black;
-    stroke-width: 1px;
-  }
+.active-bookings {
+  fill: white;
+  stroke: black;
+  stroke-width: 1px;
+}
+
+.red-zone {
+  fill: rgba(255, 0, 0, 0.1);
+}
+
+.softCap {
+  stroke: green;
 }
