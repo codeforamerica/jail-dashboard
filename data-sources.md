@@ -2,18 +2,18 @@
 # Jail Population Management Dashboard Data Sources
 
 1. [From the Jail Management System or other internal data sources](#from-the-jail-management-system-or-other-internal-data-sources)
-2. [From Data sources maintained by stakeholders](#from-data-sources-maintained-by-stakeholders)
-3. [Configured in the application](#configured-in-the-application)
+1. [Variables Configured in the Application](#variables-configured-in-the-application)
+1. [From Data Sources Maintained by Stakeholders](#from-data-sources-maintained-by-stakeholders)
 
 ## From the Jail Management System or other internal data sources
 
-Scheduled Extract-Transform-Load (**ETL**) scripts collect the data below from the agency's JMS multiple times every day. Data for historical visualizations is generated and stored on import. Historical data for visualizations can be backfilled by exporting JMS data with appropriate date ranges.
+Scheduled Extract-Transform-Load (**ETL**) scripts collect the data below from flat files exported from the agency's JMS database, multiple times every day. Data for historical visualizations is generated and stored on import. Historical data for visualizations can be backfilled by exporting JMS data with appropriate date ranges.
 
 Sample proposed data formats for this data are available in [CSV](/tmp/sample-data/csv), [JSON](/tmp/sample-data/json/people.json), and [XML](/tmp/sample-data/xml/people.xml) formats.
 
 1. [People](#people)
-2. [Bookings](#bookings)
-3. [Charges](#charges)
+1. [Bookings](#bookings)
+1. [Charges](#charges)
 
 ### People
 
@@ -58,9 +58,28 @@ category | Charge category | `MISDEMEANOR`
 court_case_number | Court case number | `13-M-006975`
 bond_amount | Bond amount | `500.00`
 
-## From Data sources maintained by stakeholders
+## Variables Configured in the Application
 
-The dashboard also displays non-jail program information, which is maintained by program managers or other stakeholders. This data may be stored in an external location, such as a Google spreadsheet, or editable in the application's admin interface.
+This data–along with other site-specific data like facility descriptions, images, and contact information–will be editable by authorized users in the application's admin interface.
+
+1. [Jail Capacity Limits](#jail-capacity-limits)
+
+### Jail Capacity Limits
+
+These numbers are used for facility population visualizations, to see when certain thresholds are passed.
+
+Variable Name | Description | Example
+------------- | ----------- | -------
+MAX_BEDS | Maximum number of beds available | `2168`
+SOFT_CAP | Soft cap on jail population | `2300`
+RED_ZONE_START | Start of the 'red zone' for jail population | `2420`
+RED_ZONE_END | End of the 'red zone' for jail population | `2480`
+HARD_CAP | Hard cap on jail population | `2480`
+MAX_JAIL_POPULATION | Maximum supportable jail population | `2600`
+
+## From Data Sources Maintained by Stakeholders
+
+The dashboard may also display non-jail program information, which is maintained by program managers or other stakeholders. This data may be stored in an external location, such as a Google spreadsheet, or editable in the application's admin interface.
 
 1. [Non-Jail Program Details](#non-jail-program-details)
 1. [Non-Jail Program Populations](#non-jail-program-populations)
@@ -109,22 +128,3 @@ Variable Name | Description | Example
 program_id | Program ID | `home-incarceration-program`
 capacity | Capacity | `700`
 as_of | Date updated | `2015-03-01`
-
-## Configured in the application
-
-This data–along with other site-specific data like facility descriptions, images, and contact information–will be editable by authorized users in the application's admin interface.
-
-1. [Jail Facility Limits](#jail-facility-limits)
-
-### Jail Facility Limits
-
-These numbers are used for facility population visualizations (see the image below), to see when certain thresholds are passed.
-
-Variable Name | Description | Example
-------------- | ----------- | -------
-MAX_BEDS | Maximum number of beds available | `2168`
-SOFT_CAP | Soft cap on jail population | `2300`
-RED_ZONE_START | Start of the 'red zone' for jail population | `2420`
-RED_ZONE_END | End of the 'red zone' for jail population | `2480`
-HARD_CAP | Hard cap on jail population | `2480`
-MAX_JAIL_POPULATION | Maximum supportable jail population | `2600`
