@@ -57,6 +57,7 @@ group :development, :test do
   # RSpec and Factory Girl for testing
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'jasmine'
 end
 
 group :development do
