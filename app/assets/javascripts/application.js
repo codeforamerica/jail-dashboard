@@ -16,3 +16,7 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
+
+window.runApplication = function() {
+  window.renderPopulationCapacityChart(d3.select(".chart"));
+};

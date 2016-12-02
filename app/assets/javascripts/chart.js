@@ -1,6 +1,4 @@
-$(document).ready( function() {
-  var chart = d3.select(".chart");
-
+window.renderPopulationCapacityChart = function(chart) {
   var parseIntAttr = function(element, attrName) {
     return parseInt(element.attr(attrName), 10)
   }
@@ -69,8 +67,6 @@ $(document).ready( function() {
       .call(xAxis);
 
   var reverseLookup = function(objOriginal, comparedValue) {
-    // var values = Object.values(objOriginal);
-
     var values = Object.keys(objOriginal).map(function (key) {
       return objOriginal[key];
     });
@@ -80,9 +76,9 @@ $(document).ready( function() {
     return Object.keys(objOriginal)[index];
   };
 
-  // Give the marker ticks their classes
-  d3.selectAll(".marker-axis .tick line")
+  chart.selectAll(".marker-axis .tick line")
     .attr('class', function(node, index) {
       return reverseLookup(markers, node);
     });
-  } );
+}
+
