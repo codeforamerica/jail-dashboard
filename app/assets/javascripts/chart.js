@@ -12,6 +12,12 @@ $(document).ready( function() {
     'maxPopulation': parseIntAttr(chart, "data-max-population"),
   }
 
+  var markerValues = []
+
+  for (var key in markers) {
+    markerValues = markerValues.concat(markers[key])
+  }
+
   var activeBookings = parseIntAttr(chart, "data-active-bookings");
 
   var margin = { top: 20, right: 20, bottom: 60, left: 40 };
@@ -49,7 +55,7 @@ $(document).ready( function() {
 
   var markerAxis = d3.axisTop(xScale)
     .tickSize(height)
-    .tickValues(Object.values(markers))
+    .tickValues(markerValues)
 
   var xAxis = d3.axisBottom(xScale);
 
@@ -63,7 +69,11 @@ $(document).ready( function() {
       .call(xAxis);
 
   var reverseLookup = function(objOriginal, comparedValue) {
-    var values = Object.values(objOriginal);
+    // var values = Object.values(objOriginal);
+
+    var values = Object.keys(objOriginal).map(function (key) {
+      return objOriginal[key];
+    });
 
     var index = values.indexOf(comparedValue);
 
