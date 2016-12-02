@@ -18,5 +18,5 @@
 //= require_tree .
 
 window.runApplication = function() {
-  window.renderPopulationCapacityChart(d3.select(".chart"));
+  window.renderPopulationCapacityChart(d3.select('.chart'));
 };

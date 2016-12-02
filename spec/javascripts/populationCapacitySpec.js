@@ -1,7 +1,7 @@
 describe('Population Capacity bar chart', function() {
   var chart;
-  var maxPopulation = 40,
-      activeBookings = 25.0;
+  var maxPopulation = 40;
+  var activeBookings = 25.0;
 
   beforeEach(function() {
     chart = d3.select('body')

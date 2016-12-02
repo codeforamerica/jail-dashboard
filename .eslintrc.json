@@ -1,0 +1,32 @@
+{
+  "env": {
+    "browser": true
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "indent": [
+      "error",
+      2
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ]
+  },
+  "globals": {
+    "d3": false,
+    "describe": false,
+    "beforeEach": false,
+    "afterEach": false,
+    "it": false,
+    "expect": false
+  }
+}

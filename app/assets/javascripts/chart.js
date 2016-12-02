@@ -1,22 +1,22 @@
 window.renderPopulationCapacityChart = function(chart) {
   var parseIntAttr = function(element, attrName) {
-    return parseInt(element.attr(attrName), 10)
-  }
+    return parseInt(element.attr(attrName), 10);
+  };
 
   var markers = {
-    'softCap': parseIntAttr(chart, "data-soft-cap"),
-    'redZoneStart': parseIntAttr(chart, "data-red-zone-start"),
-    'hardCap':parseIntAttr(chart, "data-hard-cap"),
-    'maxPopulation': parseIntAttr(chart, "data-max-population"),
-  }
+    'softCap': parseIntAttr(chart, 'data-soft-cap'),
+    'redZoneStart': parseIntAttr(chart, 'data-red-zone-start'),
+    'hardCap':parseIntAttr(chart, 'data-hard-cap'),
+    'maxPopulation': parseIntAttr(chart, 'data-max-population'),
+  };
 
-  var markerValues = []
+  var markerValues = [];
 
   for (var key in markers) {
-    markerValues = markerValues.concat(markers[key])
+    markerValues = markerValues.concat(markers[key]);
   }
 
-  var activeBookings = parseIntAttr(chart, "data-active-bookings");
+  var activeBookings = parseIntAttr(chart, 'data-active-bookings');
 
   var margin = { top: 20, right: 20, bottom: 60, left: 40 };
   var width = 800 - margin.left - margin.right;
@@ -31,15 +31,15 @@ window.renderPopulationCapacityChart = function(chart) {
 
   var xScale = d3.scaleLinear()
           .domain([0, markers.maxPopulation])
-          .range([0, width])
+          .range([0, width]);
 
-  var bar = svg.append('rect')
+  svg.append('rect')
     .attr('class', 'active-bookings')
     .attr('width', xScale(activeBookings))
     .attr('y', height / 2)
     .attr('height', height / 2);
 
-  var redZone = svg.append('rect')
+  svg.append('rect')
     .attr('class', 'red-zone')
     .attr('width', xScale(markers.hardCap - markers.redZoneStart))
     .attr('x', xScale(markers.redZoneStart))
@@ -49,11 +49,11 @@ window.renderPopulationCapacityChart = function(chart) {
     .text(activeBookings)
     .attr('x', xScale(activeBookings) / 2)
     .attr('y', height/2)
-    .attr('text-anchor', 'middle')
+    .attr('text-anchor', 'middle');
 
   var markerAxis = d3.axisTop(xScale)
     .tickSize(height)
-    .tickValues(markerValues)
+    .tickValues(markerValues);
 
   var xAxis = d3.axisBottom(xScale);
 
@@ -76,9 +76,9 @@ window.renderPopulationCapacityChart = function(chart) {
     return Object.keys(objOriginal)[index];
   };
 
-  chart.selectAll(".marker-axis .tick line")
-    .attr('class', function(node, index) {
+  chart.selectAll('.marker-axis .tick line')
+    .attr('class', function(node) {
       return reverseLookup(markers, node);
     });
-}
+};
 
