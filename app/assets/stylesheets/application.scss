@@ -13,6 +13,9 @@
  *= require_tree .
  */
 
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
 @import 'chart';
 
  .tidy {

@@ -14,4 +14,10 @@ describe 'population capacity' do
 
 		expect(page).to have_svg_text('1')
 	end
+
+	it "runs es6", :js do
+		visit "/"
+
+		expect(page.evaluate_script('`hello, ${"world"}`')).to eq("hello, world")
+	end
 end

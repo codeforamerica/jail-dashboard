@@ -1,21 +1,19 @@
 source 'http://rubygems.org'
 gem 'ruby_dep', '~>1.3.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.0'
+gem 'rails', '~> 5.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use HAML instead of ERB
 gem 'haml'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-# Use Bootstrap because it's easy and quick
-gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
+gem 'babel-transpiler'
 
 gem 'd3-rails'
 
@@ -33,8 +31,6 @@ gem 'tzinfo-data'
 
 # Use activerecord-import for bulk inserts from flat file
 gem 'activerecord-import'
-
-gem 'coffee-script-source', '1.8.0'
 
 gem 'dotenv-rails'
 
