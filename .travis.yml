@@ -1,7 +1,10 @@
 language: ruby
 rvm:
- - 2.2.5
+- 2.2.5
 services:
-  - postgresql
+- postgresql
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
+- psql -c 'create database travis_ci_test;' -U postgres
+notifications:
+  slack:
+    secure: 0dVjnki/qObMeH8Sm+h3FUoAVogUYqpLmjL12jVwMGj0US+2aku7J+mXRDA9Lpnvipfk/5GXdgf3Gu5L5QqKU+wL9UrY6BufyLkiqQYS50DwwBljdf9ak6WVOOdqVaaYwgXXjXx3i+EmVESBZxJbJnzcMtKxC0RCJIQkUnhlbAAEoqQs+ZLUXN6Ue2+GmJaZJuh+irzta28Ys3wXCJHpiWpe1opJfMwHduz+8rW5gySV35irkmx3E0+7At+4C2YSChB29CePtTwEd+CD0JK2NTPYtbKmgIerHwMoRy3KjQCjCN8+AoQikgb/u21ircjk88YQZOvjJjb1X6K9tllJlKMsWozFwzEwLJSt6JJLdCWVCpIoIrWY/v440/zid9V4Jk3ye7RP34ikbHZXfiXL8f3VEf4Hj1pMUVKHX7KY7+DPRtOKP6VLbYXieDWpQhLeyh+ZytLfRjcs9r58gHyo0i4ng/FTPmWjtgyE1RYrfxhkLkgQ5razBI4y26hMRglgxYOUMsh/gHCOCxqhHGtzdJ0a5oUjKBE87TZaotcnIo6pp50JNAEi8mKRQTr3nAh7QuCs6oYa1btH3Jkw8f+Er5JdOUHhW+2MJzIrAjdnQCv3jRG1iUAqCdjREJ+sCDl611miMlDiQkT7qjDu2Yeqfb2Kyr80zhRhHNdw7Ml/THM=
