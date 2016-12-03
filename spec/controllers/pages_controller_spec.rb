@@ -24,5 +24,5 @@ describe PagesController do
       actual_markers = controller.gon.get_variable('population_capacity_chart')[:markers]
       expect(actual_markers).to eq(expected_markers)
     end
-	end
+  end
 end

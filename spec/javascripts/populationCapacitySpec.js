@@ -6,7 +6,7 @@ describe('Population Capacity bar chart', function() {
       hard_cap: 60
     },
     active_bookings: 25.0
-  }
+  };
 
   describe('render()', function() {
     beforeEach(function() {
