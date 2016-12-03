@@ -1,32 +1,54 @@
 describe('Population Capacity bar chart', function() {
-  var chart;
-  var maxPopulation = 40;
-  var activeBookings = 25.0;
+  var chartElement;
+  var defaultArgs = {
+    markers: {
+      capacity: 40,
+      hard_cap: 60
+    },
+    active_bookings: 25.0
+  }
 
-  beforeEach(function() {
-    chart = d3.select('body')
-      .append('div')
-        .attr('class', 'chart')
-        .attr('data-soft-cap', 10)
-        .attr('data-red-zone-start', 20)
-        .attr('data-hard-cap', 30)
-        .attr('data-max-population', maxPopulation)
-        .attr('data-active-bookings', activeBookings);
+  describe('render()', function() {
+    beforeEach(function() {
+      chartElement = d3.select('body')
+        .append('div')
+          .attr('class', 'chartElement');
+    });
 
-    window.renderPopulationCapacityChart(chart);
+    afterEach(function() {
+      chartElement.remove();
+    });
+
+    it('scales bar width to number of active bookings', function() {
+      window.PopulationCapacityChart(defaultArgs).render(chartElement);
+
+      var widthOfChart = 740;
+      var expectedWidth = defaultArgs.active_bookings / defaultArgs.markers.hard_cap * widthOfChart;
+
+      var bar = chartElement.select('.active-bookings');
+      var barChartWidth = parseFloat(bar.attr('width'), 10);
+
+      expect(barChartWidth).toEqual(expectedWidth);
+    });
+
   });
 
-  afterEach(function() {
-    chart.remove();
-  });
+  describe('graphMaximumX', function() {
+    it('returns active bookings when more active bookings than hard cap', function() {
+      var args = defaultArgs;
+      args.active_bookings = args.hard_cap + 10;
 
-  it('scales bar width to number of active bookings', function() {
-    var widthOfChart = 740;
+      var graphMaximum = window.PopulationCapacityChart(args).graphMaximumX();
+      expect(graphMaximum).toEqual(args.active_bookings);
+    });
 
-    var bar = chart.select('.active-bookings');
+    it('returns hard cap when less active bookings than hard cap', function() {
+      var args = defaultArgs;
+      args.hard_cap = args.active_bookings + 10;
 
-    var barChartWidth = parseFloat(bar.attr('width'), 10);
-    expect(barChartWidth).toEqual(activeBookings/maxPopulation * widthOfChart);
+      var graphMaximum = window.PopulationCapacityChart(args).graphMaximumX();
+      expect(graphMaximum).toEqual(args.hard_cap);
+    });
   });
 
 });

@@ -1,13 +1,29 @@
+$warning-red: #dc0000;
+
 .active-bookings {
   fill: white;
   stroke: black;
   stroke-width: 1px;
 }
 
-.red-zone {
-  fill: rgba(255, 0, 0, 0.1);
+.capacity {
+  stroke-dasharray: 5, 5;
+  stroke: #000;
 }
 
-.softCap {
-  stroke: green;
+.soft_cap {
+  stroke-dasharray: 5, 5;
+  stroke: $warning-red;
+}
+
+.hard_cap {
+  stroke: $warning-red;
+}
+
+.red_zone_start {
+  display: none;
+}
+
+.red-zone {
+  fill: rgba(167, 62, 69, 0.1);
 }
