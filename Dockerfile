@@ -6,7 +6,7 @@ RUN mkdir /jail_dashboard
 WORKDIR /jail_dashboard
 
 # Install PhantomJS
-ENV PHANTOM_JS="phantomjs-1.9.8-linux-x86_64"
+ENV PHANTOM_JS="phantomjs-2.1.1-linux-x86_64"
 
 RUN apt-get install -y \
   build-essential \
