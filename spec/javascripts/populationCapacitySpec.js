@@ -1,8 +1,8 @@
-describe('Population Capacity bar chart', function() {
-  var chartElement;
-  var args;
+describe('Population Capacity bar chart', () => {
+  let chartElement;
+  let args;
 
-  beforeEach(function() {
+  beforeEach(() => {
       args = {
         active_bookings: 25,
         markers : {
@@ -14,76 +14,76 @@ describe('Population Capacity bar chart', function() {
       };
   });
 
-  describe('render()', function() {
-    beforeEach(function() {
+  describe('render()', () => {
+    beforeEach(() => {
       chartElement = d3.select('body')
         .append('div')
           .attr('class', 'chartElement');
     });
 
-    afterEach(function() {
+    afterEach(() => {
       chartElement.remove();
     });
 
-    it('scales bar width to number of active bookings', function() {
-      window.PopulationCapacityChart(args).render(chartElement);
+    it('scales bar width to number of active bookings', () => {
+      new PopulationCapacityChart(args).render(chartElement);
 
-      var widthOfChart = 740;
-      var expectedWidth = args.active_bookings / args.markers.hard_cap * widthOfChart;
+      const widthOfChart = 740;
+      const expectedWidth = args.active_bookings / args.markers.hard_cap * widthOfChart;
 
-      var bar = chartElement.select('.active-bookings');
-      var barChartWidth = parseFloat(bar.attr('width'), 10);
+      const bar = chartElement.select('.active-bookings');
+      const barChartWidth = parseFloat(bar.attr('width'), 10);
 
       expect(barChartWidth).toEqual(expectedWidth);
     });
 
   });
 
-  describe('graphMaximumX', function() {
-    it('returns active bookings when more active bookings than hard cap', function() {
+  describe('graphMaximumX', () => {
+    it('returns active bookings when more active bookings than hard cap', () => {
       args.active_bookings = args.markers.hard_cap + 10;
 
-      var graphMaximum = window.PopulationCapacityChart(args).graphMaximumX();
+      const graphMaximum = new PopulationCapacityChart(args).graphMaximumX();
       expect(graphMaximum).toEqual(args.active_bookings);
     });
 
-    it('returns hard cap when less active bookings than hard cap', function() {
+    it('returns hard cap when less active bookings than hard cap', () => {
       args.markers.hard_cap = args.active_bookings + 10;
 
-      var graphMaximum = window.PopulationCapacityChart(args).graphMaximumX();
+      const graphMaximum = new PopulationCapacityChart(args).graphMaximumX();
       expect(graphMaximum).toEqual(args.markers.hard_cap);
     });
   });
 
-  describe('numberOverThreshold', function() {
-    it('return null if not over capacity', function() {
+  describe('numberOverThreshold', () => {
+    it('return null if not over capacity', () => {
       args.active_bookings = args.markers.capacity - 5;
 
-      var overThreshold = window.PopulationCapacityChart(args).numberOverThreshold();
+      const overThreshold = new PopulationCapacityChart(args).numberOverThreshold();
 
       expect(overThreshold).toBeNull();
     });
 
-    it('returns number over capacity', function() {
+    it('returns number over capacity', () => {
       args.active_bookings = args.markers.capacity + 5;
 
-      var overThreshold = window.PopulationCapacityChart(args).numberOverThreshold();
+      const overThreshold = new PopulationCapacityChart(args).numberOverThreshold();
 
       expect(overThreshold).toEqual({ amountOver: 5, threshold: 'capacity' });
     });
 
-    it('returns number over soft cap', function() {
+    it('returns number over soft cap', () => {
       args.active_bookings = args.markers.soft_cap + 5;
 
-      var overThreshold = window.PopulationCapacityChart(args).numberOverThreshold();
+      const overThreshold = new PopulationCapacityChart(args).numberOverThreshold();
 
       expect(overThreshold).toEqual({ amountOver: 5, threshold: 'soft_cap' });
     });
 
-    it('returns number over hard cap', function() {
+    it('returns number over hard cap', () => {
       args.active_bookings = args.markers.hard_cap + 5;
 
-      var overThreshold = window.PopulationCapacityChart(args).numberOverThreshold();
+      const overThreshold = new PopulationCapacityChart(args).numberOverThreshold();
 
       expect(overThreshold).toEqual({ amountOver: 5, threshold: 'hard_cap' });
     });
