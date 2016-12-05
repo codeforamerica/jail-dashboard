@@ -9,4 +9,4 @@ development: &default
 
 test:
   <<: *default
-  database: jail_dashboard_test
+  database: travis_ci_test
