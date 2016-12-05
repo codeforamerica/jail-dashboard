@@ -36,6 +36,8 @@ gem 'activerecord-import'
 
 gem 'coffee-script-source', '1.8.0'
 
+gem 'devise'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -20,3 +20,6 @@
 
 # Ignore rbenv metadata files
 .ruby-version
+
+# Ignore env file
+.env
