@@ -36,7 +36,13 @@ gem 'activerecord-import'
 
 gem 'coffee-script-source', '1.8.0'
 
+
 gem 'devise'
+
+gem 'dotenv-rails'
+
+gem 'gon'
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -57,6 +63,7 @@ group :development, :test do
   # RSpec and Factory Girl for testing
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'jasmine'
 end
 
 group :development do
