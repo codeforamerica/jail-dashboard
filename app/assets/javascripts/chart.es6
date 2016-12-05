@@ -13,6 +13,24 @@ window.PopulationCapacityChart = function(args) {
     graphMaximumX: function() {
       return Math.max(args.active_bookings, args.markers.hard_cap);
     },
+
+    numberOverThreshold: function() {
+      var passedMarkers = Object.values(args.markers).filter((markerAmount) => {
+        return markerAmount < args.active_bookings;
+      });
+
+      if(passedMarkers.length === 0) {
+        return null;
+      }
+
+      var largestPassedThreshold = Math.max(...passedMarkers);
+
+      return {
+        amountOver: args.active_bookings - largestPassedThreshold,
+        threshold: reverseLookup(args.markers, largestPassedThreshold)
+      };
+    },
+
     render: function(targetElement) {
       var markerValues = [];
 
