@@ -2,7 +2,8 @@ require 'rails_helper'
 
 describe 'population capacity' do
 	before(:each) do
-		FactoryGirl.create(:booking)
+	  login_as FactoryGirl.create(:user)
+	  FactoryGirl.create(:booking)
 	end
 
 	def have_svg_text(text)
