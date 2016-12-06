@@ -1,6 +1,13 @@
 class PopulationCapacityChart {
   constructor(args) {
     this.args = args;
+
+    this.labels = {
+      capacity: 'capacity',
+      soft_cap: 'soft cap',
+      red_zone_start: 'red zone start',
+      hard_cap: 'hard cap',
+    }
   }
 
   reverseLookup(objOriginal, comparedValue) {
@@ -18,7 +25,7 @@ class PopulationCapacityChart {
   }
 
   numberOverThreshold() {
-    const passedMarkers = Object.values(this.args.markers).filter((markerAmount) => {
+    const passedMarkers = objectValues(this.args.markers).filter((markerAmount) => {
       return markerAmount < this.args.active_bookings;
     });
 
@@ -35,7 +42,7 @@ class PopulationCapacityChart {
   }
 
   render(targetElement) {
-    const markerValues = Object.values(this.args.markers);
+    const markerValues = objectValues(this.args.markers);
 
     const margin = { top: 20, right: 20, bottom: 60, left: 40 };
     const width = 800 - margin.left - margin.right;
@@ -64,12 +71,6 @@ class PopulationCapacityChart {
       .attr('x', xScale(this.args.markers.red_zone_start))
       .attr('height', height);
 
-    svg.append('text')
-      .text(this.args.active_bookings)
-      .attr('x', xScale(this.args.active_bookings) / 2)
-      .attr('y', height/2)
-      .attr('text-anchor', 'middle');
-
     const markerAxis = d3.axisTop(xScale)
       .tickSize(height)
       .tickValues(markerValues);
@@ -87,5 +88,20 @@ class PopulationCapacityChart {
 
     targetElement.selectAll('.marker-axis .tick line')
       .attr('class', (node) => this.reverseLookup(this.args.markers, node));
+
+    let overThreshold = this.numberOverThreshold();
+
+    let statsElement = targetElement
+      .append('div')
+        .attr('class', 'pop-capacity-stats');
+
+    statsElement
+      .append('div')
+        .attr('class', 'bed-count')
+        .text(`${this.args.active_bookings} people in beds`);
+
+    statsElement.append('div')
+        .attr('class', 'over-threshold-count')
+        .text(`${overThreshold.amountOver} over ${this.labels[overThreshold.threshold]}`);
   }
 };
