@@ -5,6 +5,9 @@ class Booking < ActiveRecord::Base
 
   validates :person_id, presence: true
 
+  PRE_TRIAL = 'pre-trial'
+  SENTENCED = 'sentenced'
+
   scope :active, -> { where(release_date_time: nil) }
 end
 
