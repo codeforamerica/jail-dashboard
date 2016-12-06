@@ -100,8 +100,10 @@ class PopulationCapacityChart {
         .attr('class', 'bed-count')
         .text(`${this.args.active_bookings} people in beds`);
 
-    statsElement.append('div')
-        .attr('class', 'over-threshold-count')
-        .text(`${overThreshold.amountOver} over ${this.labels[overThreshold.threshold]}`);
+    if (overThreshold) {
+      statsElement.append('div')
+          .attr('class', 'over-threshold-count')
+          .text(`${overThreshold.amountOver} over ${this.labels[overThreshold.threshold]}`);
+    }
   }
 };
