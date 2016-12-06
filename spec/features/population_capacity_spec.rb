@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe 'population capacity' do
+	before(:each) do
+	  login_as FactoryGirl.create(:user)
+	end
+
   it 'shows current population count', js: true do
     FactoryGirl.create(:booking)
 
