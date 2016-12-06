@@ -17,6 +17,6 @@
 //= require turbolinks
 //= require_tree .
 
-window.runApplication = function() {
-  window.PopulationCapacityChart(gon.population_capacity_chart).render(d3.select('.chart'));
+window.runApplication = () => {
+  new PopulationCapacityChart(gon.population_capacity_chart).render(d3.select('.chart'));
 };
