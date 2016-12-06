@@ -8,3 +8,7 @@ Style/StringLiterals:
   # If true, strings which span multiple lines using \ for continuation must
   # use the same type of quotes on each line.
   ConsistentQuotesInMultiline: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Metrics/LineLength:
+  Enabled: false
