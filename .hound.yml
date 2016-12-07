@@ -6,4 +6,5 @@ eslint:
   config_file: .eslintrc.json
 
 ruby:
+  enabled: true
   config_file: .rubocop.yml
