@@ -12,6 +12,15 @@ RSpec.describe Booking, type: :model do
 
   		expect(Booking.active.count).to eq(1)
   	end
+
+    it 'should return all bookings in last week' do
+      FactoryGirl.create(:booking, booking_date_time: DateTime.now - 8.days)
+
+      FactoryGirl.create(:booking, booking_date_time: (DateTime.now - 1.week) + 1.hour)
+      FactoryGirl.create(:booking, booking_date_time: DateTime.now - 6.days)
+
+      expect(Booking.last_week.count).to eq(2)
+    end
   end
 
   # it "is invalid without a person id" do
