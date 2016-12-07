@@ -28,21 +28,29 @@
         %tr
           %th Total # active bookings
           %td=@bookings.where(release_date_time: nil).count
+      %h4 Processing Status
+      %table.table.table-striped.table-responsive.processing-status
+        -@active_bookings.group_by(&:status).each do |status, bookings|
+          %tr{:class => status}
+            %th=status.capitalize
+            %td=bookings.count
+            %td=present_percent(bookings.count, @active_bookings.count)
+
     .col-md-4
       %h3 Charges Summary
       %br
       %h4 By Category
-      %table.table.table-striped.table-responsive
-        -@charges.group_by(&:category).each do |category, charges|
+      %table.table.table-striped.table-responsive.charge-categories
+        - @active_charges.group_by(&:category).each do |category, active_charges|
           %tr
-            %th=category
-            %td=charges.count
+            %th= category
+            %td= active_charges.count
       %h4 By Type
       %table.table.table-striped.table-responsive
-        -@charges.group_by(&:description).each do |description, charges|
+        - @active_charges.group_by(&:description).each do |description, charges|
           %tr
-            %th=description
-            %td=charges.count
+            %th= description
+            %td= charges.count
 
   .col-md-12
     %h3 Table Dumps (For Validation)
@@ -103,7 +111,7 @@
             %th Charge Category
             %th Court Case Number
             %th Bond Amount
-          - @charges.each do |c|
+          - Charge.all.each do |c|
             %tr
               %td=c.jms_charge_id
               %td=c.booking_id
