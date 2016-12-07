@@ -9,8 +9,8 @@ FactoryGirl.define do
     inmate_number "24601"
     facility_name "chateau d'if"
     cell_id "226"
-    status "pre-trial"
-    
+    status Booking::PRE_TRIAL
+
     trait :inactive do
     	release_date_time Faker::Time.backward(360)
     end

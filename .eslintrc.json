@@ -1,6 +1,7 @@
 {
   "env": {
-    "browser": true
+    "browser": true,
+    "es6": true
   },
   "extends": "eslint:recommended",
   "rules": {
@@ -28,6 +29,7 @@
     "afterEach": false,
     "it": false,
     "expect": false,
-    "gon": false
+    "gon": false,
+    "objectValues": false
   }
 }

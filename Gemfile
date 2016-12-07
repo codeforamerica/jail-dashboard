@@ -37,7 +37,6 @@ gem 'activerecord-import'
 
 gem 'coffee-script-source', '1.8.0'
 
-
 gem 'devise'
 
 gem 'dotenv-rails'
@@ -75,6 +74,7 @@ end
 group :test do
   gem 'faker'
   gem 'capybara'
+  gem 'database_cleaner'
   gem 'poltergeist'
   gem 'guard-rspec'
   gem 'launchy'
