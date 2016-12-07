@@ -6,7 +6,7 @@ class PagesController < ApplicationController
     @people = Person.all
     @bookings = Booking.all
     @active_bookings = @bookings.active
-    @charges = Charge.all
+    @active_charges = Charge.joins(:booking).merge(Booking.active)
 
     gon.push(
       population_capacity_chart: {
