@@ -4,6 +4,7 @@ describe PagesController do
   before do
    allow(controller).to receive(:authenticate_user!).and_return(true)
   end
+
 	describe 'home' do
     it 'should push active booking count into gon' do
       FactoryGirl.create(:booking)
@@ -18,10 +19,10 @@ describe PagesController do
       get :home
 
       expected_markers = {
-        capacity: ENV.fetch('CAPACITY'),
-        soft_cap: ENV.fetch('CAPACITY_SOFT_CAP'),
-        red_zone_start: ENV.fetch('CAPACITY_RED_ZONE_START'),
-        hard_cap: ENV.fetch('CAPACITY_HARD_CAP')
+        capacity: ENV.fetch('CAPACITY').to_i,
+        soft_cap: ENV.fetch('CAPACITY_SOFT_CAP').to_i,
+        red_zone_start: ENV.fetch('CAPACITY_RED_ZONE_START').to_i,
+        hard_cap: ENV.fetch('CAPACITY_HARD_CAP').to_i
       }
 
       actual_markers = controller.gon.get_variable('population_capacity_chart')[:markers]

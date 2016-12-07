@@ -6,15 +6,15 @@ class PagesController < ApplicationController
     @people = Person.all
     @bookings = Booking.all
     @active_bookings = @bookings.active
-    @charges = Charge.all
+    @active_charges = Charge.joins(:booking).merge(Booking.active)
 
     gon.push(
       population_capacity_chart: {
         markers: {
-          capacity: ENV.fetch("CAPACITY"),
-          soft_cap: ENV.fetch("CAPACITY_SOFT_CAP"),
-          red_zone_start: ENV.fetch("CAPACITY_RED_ZONE_START"),
-          hard_cap: ENV.fetch("CAPACITY_HARD_CAP")
+          capacity: ENV.fetch("CAPACITY").to_i,
+          soft_cap: ENV.fetch("CAPACITY_SOFT_CAP").to_i,
+          red_zone_start: ENV.fetch("CAPACITY_RED_ZONE_START").to_i,
+          hard_cap: ENV.fetch("CAPACITY_HARD_CAP").to_i
         },
         active_bookings: @bookings.active.count
       }
