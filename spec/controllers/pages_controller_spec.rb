@@ -4,6 +4,7 @@ describe PagesController do
   before do
    allow(controller).to receive(:authenticate_user!).and_return(true)
   end
+
 	describe 'home' do
     it 'should push active booking count into gon' do
       FactoryGirl.create(:booking)
