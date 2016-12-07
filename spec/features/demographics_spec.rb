@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'demographics' do
-  include  ActionView::Helpers::NumberHelper
+  include ActionView::Helpers::NumberHelper
 
   before(:each) do
     login_as FactoryGirl.create(:user)
