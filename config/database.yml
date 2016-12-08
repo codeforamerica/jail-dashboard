@@ -12,4 +12,6 @@ test:
   database: travis_ci_test
 
 production:
-  url: "<%= ENV["DATABASE_URL"] %>"
+  <<: *default
+  database: jail_dashboard_prod
+  url: '<%= ENV["DATABASE_URL"] %>'
