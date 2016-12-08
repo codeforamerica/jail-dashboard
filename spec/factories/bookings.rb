@@ -12,7 +12,12 @@ FactoryGirl.define do
     status Booking::PRE_TRIAL
 
     trait :inactive do
-    	release_date_time Faker::Time.backward(360)
+      status Booking::SENTENCED
+      release_date_time Faker::Time.backward(2)
+    end
+
+    trait :last_week do
+      booking_date_time Faker::Time.backward(4)
     end
   end
 end

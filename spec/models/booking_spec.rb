@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Booking, type: :model do
-  it "has a valid factory" do
+  it 'has valid factory and traits' do
     expect(FactoryGirl.create(:booking)).to be_valid
+    expect(FactoryGirl.create(:booking, :inactive)).to be_valid
+    expect(FactoryGirl.create(:booking, :last_week)).to be_valid
   end
 
   describe 'scopes' do

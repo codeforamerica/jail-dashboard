@@ -44,6 +44,11 @@
             %th= status
             %td= bookings.count
             %td= present_percent(bookings.count, @active_bookings.count)
+      %h4 Current Week
+      %table.table.table-striped.table-responsive.booking-stats
+        %tr.current-week
+          %th=@bookings.last_week.count
+          %td people booked within past week
     .col-md-4
       %h3 Charges Summary
       %br
