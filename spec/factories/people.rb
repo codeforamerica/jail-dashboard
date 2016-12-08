@@ -1,13 +1,13 @@
 require 'faker'
 
 FactoryGirl.define do
-  factory :person do |f|
-    f.jms_person_id "11235"
-    f.first_name Faker::Name.first_name
-    f.middle_name Faker::Name.first_name
-    f.last_name Faker::Name.last_name
-    f.date_of_birth Faker::Time.between(DateTime.now - 1, DateTime.now)
-    f.gender "male"
-    f.race "white"
+  factory :person do
+    sequence(:jms_person_id) { |n| format('%05d', n) }
+    first_name Faker::Name.first_name
+    middle_name Faker::Name.first_name
+    last_name Faker::Name.last_name
+    date_of_birth Faker::Time.between(DateTime.now - 1, DateTime.now)
+    gender 'male'
+    race 'white'
   end
 end

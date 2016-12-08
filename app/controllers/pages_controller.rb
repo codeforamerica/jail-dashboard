@@ -4,8 +4,11 @@ class PagesController < ApplicationController
 
   def home
     @people = Person.all
+    @active_people = Person.joins(:bookings).merge(Booking.active)
+
     @bookings = Booking.all
     @active_bookings = @bookings.active
+
     @active_charges = Charge.joins(:booking).merge(Booking.active)
 
     gon.push(
