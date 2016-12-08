@@ -12,4 +12,31 @@ namespace :bookings do
       puts "bookings imported"
     end
   end
+
+  desc "generate bookings within the last week"
+  task :generate_weekly, [:count] => [:environment] do |t, args|
+    count = (args[:count] || 10).to_i
+
+    puts "Generating #{count} bookings within last week"
+    Booking.transaction do
+      people = Person.last(count)
+      facilities = ['Main Jail Complex', 'Medical Facility', 'County Correctional Center']
+
+      count.times do |index|
+        booking_date_time = Faker::Time.between(1.week.ago, DateTime.now)
+        booking = Booking.create!(
+          jms_booking_id: Faker::Code.ean,
+          booking_date_time: booking_date_time,
+          release_date_time: [booking_date_time, nil].sample,
+          inmate_number: Faker::Number.hexadecimal(10),
+          facility_name: facilities.sample,
+          cell_id: Faker::Address.building_number,
+          status: [Booking::PRE_TRIAL, Booking::SENTENCED].sample,
+          person_id: people[index].jms_person_id
+        )
+      end
+    end
+
+    puts "Successfully generated #{count} bookings within last week"
+  end
 end

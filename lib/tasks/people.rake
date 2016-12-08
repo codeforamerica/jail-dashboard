@@ -12,4 +12,25 @@ namespace :people do
       puts "people imported"
     end
   end
+
+  desc "generate people"
+  task :generate, [:count] => [:environment] do |t, args|
+    count = (args[:count] || 10).to_i
+
+    puts "Generating #{count} people..."
+    Person.transaction do
+      count.times do |index|
+        Person.create!(
+          jms_person_id: Faker::Code.isbn,
+          first_name: Faker::Name.first_name,
+          middle_name: Faker::Name.first_name,
+          last_name: Faker::Name.last_name,
+          date_of_birth: Faker::Time.between(70.years.ago, 18.years.ago),
+          gender: Person::GENDERS.sample,
+          race: Person::RACES.sample
+        )
+      end
+    end
+    puts "Successfully generated #{count} people"
+  end
 end
