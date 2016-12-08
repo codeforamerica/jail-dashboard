@@ -25,3 +25,5 @@ WORKDIR /jail_dashboard
 ADD Gemfile /jail_dashboard/Gemfile
 ADD Gemfile.lock /jail_dashboard/Gemfile.lock
 RUN bundle install
+
+ENTRYPOINT bundle exec rails s -b '0.0.0.0' -p 3000
