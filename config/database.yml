@@ -3,6 +3,7 @@ development: &default
   encoding: unicode
   database: jail_dashboard_dev
   pool: 5
+  port: 5432
   username: postgres
   password: postgres
   host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
@@ -14,4 +15,3 @@ test:
 production:
   <<: *default
   database: jail_dashboard_prod
-  url: '<%= ENV["DATABASE_URL"] %>'
