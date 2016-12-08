@@ -10,15 +10,11 @@ describe 'people rake tasks' do
     end
 
     it 'creates 10 people by default' do
-      expect {
-        run_task
-      }.to change{Person.count}.by(10)
+      expect { run_task }.to change { Person.count }.by(10)
     end
 
     it 'accepts number of people to create as argument' do
-      expect {
-        run_task('3')
-      }.to change{Person.count}.by(3)
+      expect { run_task('3') }.to change { Person.count }.by(3)
     end
 
     it 'assigns age higher than 18 years' do

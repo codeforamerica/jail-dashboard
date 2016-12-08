@@ -14,15 +14,11 @@ describe 'bookings rake tasks' do
     end
 
     it 'creates 10 bookings by default' do
-      expect {
-        run_task
-      }.to change{Booking.count}.by(10)
+      expect { run_task }.to change { Booking.count }.by(10)
     end
 
     it 'accepts number of bookings to create as argument' do
-      expect {
-        run_task('3')
-      }.to change{Booking.count}.by(3)
+      expect { run_task('3') }.to change { Booking.count }.by(3)
     end
 
     it 'creates bookings within past week' do
@@ -57,7 +53,7 @@ describe 'bookings rake tasks' do
     it 'assigns an existing facility name' do
       run_task('3')
 
-      expected_facility_names = ["Main Jail Complex", "Medical Facility", "County Correctional Center"]
+      expected_facility_names = ['Main Jail Complex', 'Medical Facility', 'County Correctional Center']
       actual_facility_names = Booking.last(3).map(&:facility_name).uniq
 
       expect(expected_facility_names).to include(*actual_facility_names)
