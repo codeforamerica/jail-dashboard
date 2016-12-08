@@ -69,4 +69,3 @@ describe 'bookings rake tasks' do
     end
   end
 end
-
