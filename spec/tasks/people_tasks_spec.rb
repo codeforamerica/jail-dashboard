@@ -48,4 +48,3 @@ describe 'people rake tasks' do
     end
   end
 end
-

@@ -5,22 +5,31 @@
     .col-md-4
       %h3 People Summary
       %br
+
       %table.table.table-striped.table-responsive
         %tr
           %th Total # people in system
-          %td=@people.count
+          %td= @people.count
+        %tr
+          %th People with active bookings
+          %td= @active_people.count
+
       %h4 Gender
-      %table.table.table-striped.table-responsive
-        -@people.group_by(&:gender).each do |gender, people|
+      %table.table.table-striped.table-responsive.demographics-gender
+        - @active_people.group_by(&:gender).each do |gender, people|
           %tr
-            %th=gender
-            %td=people.count
+            %th= gender
+            %td= people.count
+            %td= present_percent(people.count, @active_people.count)
+
       %h4 Race
-      %table.table.table-striped.table-responsive
-        -@people.group_by(&:race).each do |race, people|
+      %table.table.table-striped.table-responsive.demographics-race
+        - @active_people.group_by(&:race).each do |race, people|
           %tr
-            %th=race
-            %td=people.count
+            %th= race
+            %td= people.count
+            %td= present_percent(people.count, @active_people.count)
+
     .col-md-4
       %h3 Bookings Summary
       %br

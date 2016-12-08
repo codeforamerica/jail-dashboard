@@ -3,7 +3,7 @@ require 'faker'
 FactoryGirl.define do
   factory :booking do
     sequence(:jms_booking_id) { |n| format("%5d", n) }
-    association :person
+    person
     booking_date_time Faker::Time.backward(365)
     release_date_time nil
     inmate_number "24601"
