@@ -9,6 +9,10 @@ Bundler.require(*Rails.groups)
 module JailDashboard
   class Application < Rails::Application
 
+    if ENV['DOCKERIZED'] == 'true'
+      config.web_console.whitelisted_ips = ENV['DOCKER_HOST_IP']
+    end
+
     config.generators do |g|
       g.test_framework :rspec,
         :fixtures => true,
