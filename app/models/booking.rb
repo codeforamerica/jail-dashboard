@@ -9,5 +9,7 @@ class Booking < ActiveRecord::Base
   SENTENCED = 'Sentenced'.freeze
 
   scope :active, -> { where(release_date_time: nil) }
+  scope :inactive, -> { where.not(release_date_time: nil) }
+  scope :last_week, -> { where('booking_date_time > ?', 1.week.ago) }
 end
 
