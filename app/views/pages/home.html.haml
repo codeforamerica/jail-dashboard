@@ -40,11 +40,10 @@
       %h4 Processing Status
       %table.table.table-striped.table-responsive.processing-status
         -@active_bookings.group_by(&:status).each do |status, bookings|
-          %tr{:class => status}
-            %th=status.capitalize
-            %td=bookings.count
-            %td=present_percent(bookings.count, @active_bookings.count)
-
+          %tr{ class: status.downcase }
+            %th= status
+            %td= bookings.count
+            %td= present_percent(bookings.count, @active_bookings.count)
     .col-md-4
       %h3 Charges Summary
       %br

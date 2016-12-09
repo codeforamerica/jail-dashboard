@@ -7,7 +7,7 @@ FactoryGirl.define do
     middle_name Faker::Name.first_name
     last_name Faker::Name.last_name
     date_of_birth Faker::Time.between(DateTime.now - 1, DateTime.now)
-    gender 'male'
-    race 'white'
+    gender Person::GENDERS.first
+    race Person::RACES.first
   end
 end
