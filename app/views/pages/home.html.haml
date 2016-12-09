@@ -52,6 +52,12 @@
           %th #{inactive} (#{present_percent(inactive, @weekly_bookings.count)})
           %td people released
 
+      %h4 Location
+      = render "grouping_table",
+        records: @active_bookings,
+        attribute: :facility_name,
+        html_class: 'location'
+
     .col-md-4
       %h3 Charges Summary
       %br
