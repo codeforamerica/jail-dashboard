@@ -27,3 +27,41 @@ $warning-red: #dc0000;
 .red-zone {
   fill: rgba(167, 62, 69, 0.1);
 }
+
+.breakdown-bars {
+  height: 1em;
+  display: flex;
+  margin-bottom: 0.5em;
+}
+
+.breakdown-bar {
+  display: inline-block;
+  height: 100%;
+
+  &:nth-child(7n + 1) { background-color: #c67153; }
+  &:nth-child(7n + 2) { background-color: #79b2d2; }
+  &:nth-child(7n + 3) { background-color: #8e6acd; }
+  &:nth-child(7n + 4) { background-color: #cbc062; }
+  &:nth-child(7n + 5) { background-color: #c34b63; }
+  &:nth-child(7n + 6) { background-color: #6ecf99; }
+  &:nth-child(7n + 7) { background-color: #3b68b0; }
+}
+
+.breakdown-table tr {
+  th:before {
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    margin-right: 0.5em;
+  }
+
+  &:nth-child(7n + 1) th:before { background-color: #c67153; }
+  &:nth-child(7n + 2) th:before { background-color: #79b2d2; }
+  &:nth-child(7n + 3) th:before { background-color: #8e6acd; }
+  &:nth-child(7n + 4) th:before { background-color: #cbc062; }
+  &:nth-child(7n + 5) th:before { background-color: #c34b63; }
+  &:nth-child(7n + 6) th:before { background-color: #6ecf99; }
+  &:nth-child(7n + 7) th:before { background-color: #3b68b0; }
+}
