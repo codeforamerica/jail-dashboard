@@ -23,10 +23,10 @@ RSpec.describe Booking, type: :model do
     end
 
     it 'should return all bookings in last week' do
-      FactoryGirl.create(:booking, booking_date_time: DateTime.now - 8.days)
+      FactoryGirl.create(:booking, booking_date_time: 8.days.ago)
 
-      FactoryGirl.create(:booking, booking_date_time: (DateTime.now - 1.week) + 1.hour)
-      FactoryGirl.create(:booking, booking_date_time: DateTime.now - 6.days)
+      FactoryGirl.create(:booking, booking_date_time: 1.week.ago + 1.hour)
+      FactoryGirl.create(:booking, booking_date_time: 6.days.ago)
 
       expect(Booking.last_week.count).to eq(2)
     end

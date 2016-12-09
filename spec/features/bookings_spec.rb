@@ -5,7 +5,7 @@ describe 'bookings data' do
     login_as FactoryGirl.create(:user)
   end
 
-  it 'shows count of current and inactive bookings from past week', js: true do
+  it 'shows count of current and inactive bookings from past week' do
     FactoryGirl.create(:booking)
     FactoryGirl.create_list(:booking, 2, :last_week)
     FactoryGirl.create_list(:booking, 2, :last_week, :inactive)
@@ -17,7 +17,7 @@ describe 'bookings data' do
     expect(booked_current_week).to eq('4 people booked within past week')
   end
 
-  it 'shows count of people released on bond in past week', js: true do
+  it 'shows count of people released on bond in past week' do
     FactoryGirl.create_list(:booking, 2)
     FactoryGirl.create_list(:booking, 2, :last_week)
     FactoryGirl.create_list(:booking, 1, :last_week, :inactive)
