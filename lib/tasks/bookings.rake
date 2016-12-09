@@ -23,7 +23,7 @@ namespace :bookings do
       facilities = ['Main Jail Complex', 'Medical Facility', 'County Correctional Center']
 
       count.times do |index|
-        booking_date_time = Faker::Time.between(1.week.ago, DateTime.now.utc)
+        booking_date_time = Faker::Time.between(6.days.ago, DateTime.now)
         Booking.create!(
           jms_booking_id: Faker::Code.ean,
           booking_date_time: booking_date_time,
