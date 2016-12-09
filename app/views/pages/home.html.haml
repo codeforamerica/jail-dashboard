@@ -15,10 +15,10 @@
           %td= @active_people.count
 
       %h4 Gender
-      = render "grouping_table", records: @active_people, attribute: :gender
+      = render "grouping_table", records: @active_people, attribute: :gender, html_class: 'demographics-gender'
 
       %h4 Race
-      = render "grouping_table", records: @active_people, attribute: :race
+      = render "grouping_table", records: @active_people, attribute: :race, html_class: 'demographics-race'
 
     .col-md-4
       %h3 Bookings Summary
@@ -29,13 +29,13 @@
           %td=@bookings.where(release_date_time: nil).count
 
       %h4 Processing Status
-      = render "grouping_table", records: @active_bookings, attribute: :status
+      = render "grouping_table", records: @active_bookings, attribute: :status, html_class: 'processing-status'
 
     .col-md-4
       %h3 Charges Summary
       %br
       %h4 By Category
-      = render "grouping_table", records: @active_charges, attribute: :category
+      = render "grouping_table", records: @active_charges, attribute: :category, html_class: 'charge-categories'
 
       %h4 By Type
       = render "grouping_table", records: @active_charges, attribute: :description
