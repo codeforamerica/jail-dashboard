@@ -1,0 +1,8 @@
+-# Show a table of the number and percentage of records grouped by an attribute
+
+%table{ class: "table table-striped table-responsive #{html_class}" }
+  - records.group_by(&attribute).each do |bucket, grouped|
+    %tr{ class: bucket.downcase }
+      %th= bucket
+      %td= grouped.count
+      %td= present_percent(grouped.count, records.count)
