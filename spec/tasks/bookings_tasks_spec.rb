@@ -26,9 +26,9 @@ describe 'bookings rake tasks' do
 
       booking_dates = Booking.last(3).map(&:booking_date_time)
 
-      expect(booking_dates.first).to be_within(1.week).of(DateTime.now)
-      expect(booking_dates.second).to be_within(1.week).of(DateTime.now)
-      expect(booking_dates.third).to be_within(1.week).of(DateTime.now)
+      expect(booking_dates.first).to be_within(1.week).of(DateTime.now.utc)
+      expect(booking_dates.second).to be_within(1.week).of(DateTime.now.utc)
+      expect(booking_dates.third).to be_within(1.week).of(DateTime.now.utc)
     end
 
     it 'assigns existing people to bookings' do
