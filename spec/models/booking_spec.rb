@@ -8,12 +8,19 @@ RSpec.describe Booking, type: :model do
   end
 
   describe 'scopes' do
-  	it 'should return active bookings' do
-  		FactoryGirl.create(:booking)
-  		FactoryGirl.create(:booking, :inactive)
+    it 'should return active bookings' do
+      FactoryGirl.create(:booking)
+      FactoryGirl.create(:booking, :inactive)
 
-  		expect(Booking.active.count).to eq(1)
-  	end
+      expect(Booking.active.count).to eq(1)
+    end
+
+    it 'should return inactive bookings' do
+      FactoryGirl.create(:booking)
+      FactoryGirl.create(:booking, :inactive)
+
+      expect(Booking.inactive.count).to eq(1)
+    end
 
     it 'should return all bookings in last week' do
       FactoryGirl.create(:booking, booking_date_time: DateTime.now - 8.days)
