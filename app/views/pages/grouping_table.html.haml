@@ -1,0 +1,7 @@
+-# Show a table of the number and percentage of records grouped by an attribute
+%table.table.table-striped.table-responsive
+  - records.group_by(&attribute).each do |attribute, grouped|
+    %tr
+      %th= attribute
+      %td= grouped.count
+      %td= present_percent(grouped.count, records.count)
