@@ -1,3 +1,10 @@
+$breakout-color-1: #c67153;
+$breakout-color-2: #79b2d2;
+$breakout-color-3: #8e6acd;
+$breakout-color-4: #cbc062;
+$breakout-color-5: #c34b63;
+$breakout-color-6: #6ecf99;
+$breakout-color-7: #3b68b0;
 $warning-red: #dc0000;
 
 .active-bookings {
@@ -26,4 +33,42 @@ $warning-red: #dc0000;
 
 .red-zone {
   fill: rgba(167, 62, 69, 0.1);
+}
+
+.breakdown-bars {
+  height: 1em;
+  display: flex;
+  margin-bottom: 0.5em;
+}
+
+.breakdown-bar {
+  display: inline-block;
+  height: 100%;
+
+  &:nth-child(7n + 1) { background-color: $breakout-color-1; }
+  &:nth-child(7n + 2) { background-color: $breakout-color-2; }
+  &:nth-child(7n + 3) { background-color: $breakout-color-3; }
+  &:nth-child(7n + 4) { background-color: $breakout-color-4; }
+  &:nth-child(7n + 5) { background-color: $breakout-color-5; }
+  &:nth-child(7n + 6) { background-color: $breakout-color-6; }
+  &:nth-child(7n + 7) { background-color: $breakout-color-7; }
+}
+
+.breakdown-row {
+  th:before {
+    content: "";
+    display: inline-block;
+    height: 1em;
+    margin-right: 0.5em;
+    vertical-align: middle;
+    width: 1em;
+  }
+
+  &:nth-child(7n + 1) th::before { background-color: $breakout-color-1; }
+  &:nth-child(7n + 2) th::before { background-color: $breakout-color-2; }
+  &:nth-child(7n + 3) th::before { background-color: $breakout-color-3; }
+  &:nth-child(7n + 4) th::before { background-color: $breakout-color-4; }
+  &:nth-child(7n + 5) th::before { background-color: $breakout-color-5; }
+  &:nth-child(7n + 6) th::before { background-color: $breakout-color-6; }
+  &:nth-child(7n + 7) th::before { background-color: $breakout-color-7; }
 }

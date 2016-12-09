@@ -1,8 +1,15 @@
 -# Show a table of the number and percentage of records grouped by an attribute
 
-%table{ class: "table table-striped table-responsive #{html_class}" }
-  - records.group_by(&attribute).each do |bucket, grouped|
-    %tr{ class: bucket.downcase }
-      %th= bucket
-      %td= grouped.count
-      %td= present_percent(grouped.count, records.count)
+- grouped_records = records.group_by(&attribute).sort_by { |_, grouped| grouped.count }.reverse
+
+%div{ class: html_class }
+  .breakdown-bars
+    - grouped_records.each do |bucket, grouped|
+      .breakdown-bar{ style: "flex: 0 1 #{present_percent(grouped.count, records.count)}" }
+
+  %table.table.table-striped.table-responsive.breakdown-table
+    - grouped_records.each do |bucket, grouped|
+      %tr{ class: "breakdown-row #{bucket.downcase}" }
+        %th= bucket
+        %td= grouped.count
+        %td= present_percent(grouped.count, records.count)
