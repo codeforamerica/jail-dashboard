@@ -17,19 +17,20 @@ describe 'population capacity' do
 
   it 'shows amount over threshold if over a threshold', js: true do
     allow(ENV).to receive(:fetch)
-    allow(ENV).to receive(:fetch).with("CAPACITY").and_return(1)
+    allow(ENV).to receive(:fetch).with('CAPACITY').and_return(1)
 
     FactoryGirl.create_list(:booking, 2)
 
     visit '/'
 
-    over_threshold_count = page.find('.pop-capacity-stats .over-threshold-count').text
-    expect(over_threshold_count).to eq("1 over capacity")
+    within('.pop-capacity-stats') do
+      expect(page).to have_css('.over-threshold-count', text: '1 over capacity')
+    end
   end
 
   it 'does not show amount over threshold if not over a threshold' do
     allow(ENV).to receive(:fetch)
-    allow(ENV).to receive(:fetch).with("CAPACITY").and_return(1)
+    allow(ENV).to receive(:fetch).with('CAPACITY').and_return(1)
 
     visit '/'
 
