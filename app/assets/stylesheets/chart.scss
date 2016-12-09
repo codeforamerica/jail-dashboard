@@ -56,12 +56,12 @@ $warning-red: #dc0000;
 
 .breakdown-row {
   th:before {
-    content: '';
+    content: "";
     display: inline-block;
-    width: 1em;
     height: 1em;
-    vertical-align: middle;
     margin-right: 0.5em;
+    vertical-align: middle;
+    width: 1em;
   }
 
   &:nth-child(7n + 1) th::before { background-color: $breakout-color-1; }
