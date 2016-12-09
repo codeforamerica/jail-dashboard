@@ -15,20 +15,16 @@
           %td= @active_people.count
 
       %h4 Gender
-      %table.table.table-striped.table-responsive.demographics-gender
-        - @active_people.group_by(&:gender).each do |gender, people|
-          %tr
-            %th= gender
-            %td= people.count
-            %td= present_percent(people.count, @active_people.count)
+      = render "grouping_table",
+        records: @active_people,
+        attribute: :gender,
+        html_class: 'demographics-gender'
 
       %h4 Race
-      %table.table.table-striped.table-responsive.demographics-race
-        - @active_people.group_by(&:race).each do |race, people|
-          %tr
-            %th= race
-            %td= people.count
-            %td= present_percent(people.count, @active_people.count)
+      = render "grouping_table",
+        records: @active_people,
+        attribute: :race,
+        html_class: 'demographics-race'
 
     .col-md-4
       %h3 Bookings Summary
@@ -37,13 +33,14 @@
         %tr
           %th Total # active bookings
           %td=@bookings.where(release_date_time: nil).count
+
       %h4 Processing Status
-      %table.table.table-striped.table-responsive.processing-status
-        -@active_bookings.group_by(&:status).each do |status, bookings|
-          %tr{ class: status.downcase }
-            %th= status
-            %td= bookings.count
-            %td= present_percent(bookings.count, @active_bookings.count)
+
+      = render "grouping_table",
+        records: @active_bookings,
+        attribute: :status,
+        html_class: 'processing-status'
+
       %h4 Current Week
       %table.table.table-striped.table-responsive.booking-stats
         %tr.current-week-booked
@@ -54,18 +51,18 @@
           - inactive = @weekly_bookings.inactive.count
           %th #{inactive} (#{present_percent(inactive, @weekly_bookings.count)})
           %td people released
+
     .col-md-4
       %h3 Charges Summary
       %br
       %h4 By Category
-      %table.table.table-striped.table-responsive.charge-categories
-        - @active_charges.group_by(&:category).each do |category, active_charges|
-          %tr
-            %th= category
-            %td= active_charges.count
+      = render "grouping_table",
+        records: @active_charges,
+        attribute: :category,
+        html_class: 'charge-categories'
+
       %h4 By Type
-      %table.table.table-striped.table-responsive
-        - @active_charges.group_by(&:description).each do |description, charges|
-          %tr
-            %th= description
-            %td= charges.count
+      = render "grouping_table",
+        records: @active_charges,
+        attribute: :description,
+        html_class: 'charge-types'
