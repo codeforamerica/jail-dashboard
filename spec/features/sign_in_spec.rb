@@ -28,4 +28,9 @@ describe 'sign in' do
     sign_in(user.email, 'abcde')
     expect(page).to have_content('Invalid Email or password.')
   end
+
+  it 'should allow a service to access the healthcheck without logging in' do
+    visit '/healthcheck'
+    expect(page).to have_content('Success')
+  end
 end

@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :healthcheck
 
   def home
     @people = Person.all
@@ -23,5 +23,8 @@ class PagesController < ApplicationController
         active_bookings: @bookings.active.count
       }
     )
+  end
+
+  def healthcheck
   end
 end
