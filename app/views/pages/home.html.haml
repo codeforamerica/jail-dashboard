@@ -35,10 +35,22 @@
           %td=@bookings.where(release_date_time: nil).count
 
       %h4 Processing Status
+
       = render "grouping_table",
         records: @active_bookings,
         attribute: :status,
         html_class: 'processing-status'
+
+      %h4 Current Week
+      %table.table.table-striped.table-responsive.booking-stats
+        %tr.current-week-booked
+          %th= @weekly_bookings.count
+          %td people booked within past week
+        %tr.current-week-released
+          - total = @weekly_bookings.count
+          - inactive = @weekly_bookings.inactive.count
+          %th #{inactive} (#{present_percent(inactive, @weekly_bookings.count)})
+          %td people released
 
     .col-md-4
       %h3 Charges Summary
