@@ -18,7 +18,7 @@ class Person < ActiveRecord::Base
   scope :active, -> { joins(:bookings).merge(Booking.active).uniq }
 
   def active_booking
-    bookings.active.sort{|b1, b2| b1.booking_date_time <=> b2.booking_date_time }.last
+    bookings.active.sort { |b1, b2| b1.booking_date_time <=> b2.booking_date_time }.last
   end
 
   def self.target_bondable

@@ -11,7 +11,7 @@ class Booking < ActiveRecord::Base
 
   PRE_TRIAL = 'Pre-trial'.freeze
   SENTENCED = 'Sentenced'.freeze
-  BOND_CAP = 500.freeze
+  BOND_CAP = 500
 
   scope :active, -> { where(release_date_time: nil) }
   scope :inactive, -> { where.not(release_date_time: nil) }
