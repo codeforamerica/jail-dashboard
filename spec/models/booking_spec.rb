@@ -1,10 +1,29 @@
 require 'rails_helper'
 
-RSpec.describe Booking, type: :model do
-  it 'has valid factory and traits' do
-    expect(FactoryGirl.create(:booking)).to be_valid
-    expect(FactoryGirl.create(:booking, :inactive)).to be_valid
-    expect(FactoryGirl.create(:booking, :last_week)).to be_valid
+RSpec.describe Booking do
+  describe 'factory traits' do
+    specify { FactoryGirl.create(:booking).should be_valid }
+
+    specify { FactoryGirl.create(:booking, :inactive).should be_valid }
+
+    specify { FactoryGirl.create(:booking, :last_week).should be_valid }
+  end
+
+  describe 'validations' do
+    it 'does not allow multiple active bookings for a single person' do
+      original_booking = FactoryGirl.create(:booking)
+      new_booking = FactoryGirl.build(:booking, person: original_booking.person)
+
+      expect(new_booking).not_to be_valid
+      expect(new_booking.errors[:release_date_time]).
+        to include(Booking::MULTIPLE_ACTIVE_BOOKINGS_ERROR)
+    end
+
+    it "is invalid without a person id" do
+      booking = FactoryGirl.build(:booking, person_id: nil)
+
+      expect(booking).not_to be_valid
+    end
   end
 
   describe 'scopes' do
@@ -31,8 +50,4 @@ RSpec.describe Booking, type: :model do
       expect(Booking.last_week.count).to eq(2)
     end
   end
-
-  # it "is invalid without a person id" do
-  #   FactoryGirl.create(:booking, person_id: nil).should_not be_valid
-  # end
 end
