@@ -4,13 +4,15 @@ class PagesController < ApplicationController
 
   def home
     @people = Person.all
-    @active_people = Person.joins(:bookings).merge(Booking.active)
+    @active_people = Person.active
 
     @bookings = Booking.all
     @active_bookings = @bookings.active
     @weekly_bookings = @bookings.last_week
 
     @active_charges = Charge.joins(:booking).merge(Booking.active)
+
+    @target_bond_people = Person.target_bondable
 
     gon.push(
       population_capacity_chart: {
