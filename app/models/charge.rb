@@ -4,4 +4,6 @@ class Charge < ActiveRecord::Base
 
   validates :jms_charge_id, presence: true, uniqueness: true
   validates :booking_id, presence: true
+
+  scope :bondable, -> { where('bond_amount > ?', 0) }
 end

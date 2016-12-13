@@ -10,4 +10,8 @@ FactoryGirl.define do
     court_case_number '13579-ABC'
     bond_amount 250.00
   end
+
+  trait :unbondable do
+    bond_amount nil
+  end
 end
