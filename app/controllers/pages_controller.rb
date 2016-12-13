@@ -4,13 +4,19 @@ class PagesController < ApplicationController
 
   def home
     @people = Person.all
-    @active_people = Person.joins(:bookings).merge(Booking.active)
+    @active_people = Person.active
 
     @bookings = Booking.all
     @active_bookings = @bookings.active
     @weekly_bookings = @bookings.last_week
 
     @active_charges = Charge.joins(:booking).merge(Booking.active)
+
+    @target_bond_people = @active_people.select do |p|
+        p.active_booking.bondable? && p.active_booking.bond_total <= 500
+      end.sort do |p1, p2|
+        p1.active_booking.bond_total <=> p2.active_booking.bond_total
+      end
 
     gon.push(
       population_capacity_chart: {
