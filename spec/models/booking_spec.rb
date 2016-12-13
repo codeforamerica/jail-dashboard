@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Booking, type: :model do
-  it 'has valid factory and traits' do
+  describe 'factory and traits' do
     specify { FactoryGirl.create(:booking).should be_valid }
 
     specify { FactoryGirl.create(:booking, :inactive).should be_valid }
@@ -27,43 +27,60 @@ describe Booking, type: :model do
   end
 
   describe 'scopes' do
-    it 'should return active bookings' do
-      FactoryGirl.create(:booking)
-      FactoryGirl.create(:booking, :inactive)
+    describe '.active' do
+      it 'should return active bookings' do
+        FactoryGirl.create(:booking)
+        FactoryGirl.create(:booking, :inactive)
 
-      expect(Booking.active.count).to eq(1)
+        expect(Booking.active.count).to eq(1)
+      end
     end
 
-    it 'should return inactive bookings' do
-      FactoryGirl.create(:booking)
-      FactoryGirl.create(:booking, :inactive)
+    describe '.inactive' do
+      it 'should return inactive bookings' do
+        FactoryGirl.create(:booking)
+        FactoryGirl.create(:booking, :inactive)
 
-      expect(Booking.inactive.count).to eq(1)
+        expect(Booking.inactive.count).to eq(1)
+      end
     end
 
-    it 'should return all bookings in last week' do
-      FactoryGirl.create(:booking, booking_date_time: 8.days.ago)
+    describe '.last_week' do
+      it 'should return all bookings in last week' do
+        FactoryGirl.create(:booking, booking_date_time: 8.days.ago)
 
-      FactoryGirl.create(:booking, booking_date_time: 1.week.ago + 1.hour)
-      FactoryGirl.create(:booking, booking_date_time: 6.days.ago)
+        FactoryGirl.create(:booking, booking_date_time: 1.week.ago + 1.hour)
+        FactoryGirl.create(:booking, booking_date_time: 6.days.ago)
 
-      expect(Booking.last_week.count).to eq(2)
+        expect(Booking.last_week.count).to eq(2)
+      end
     end
 
-    it 'should return bookings with bondable charges' do
-      bondable_booking = FactoryGirl.create(:booking)
-      FactoryGirl.create(:charge, booking: bondable_booking)
+    describe '.bondable' do
+      it 'should return bookings with bondable charges' do
+        bondable_booking = FactoryGirl.create(:booking)
+        FactoryGirl.create(:charge, booking: bondable_booking)
 
-      unbondable_booking = FactoryGirl.create(:booking)
-      FactoryGirl.create(:charge, :unbondable, booking: unbondable_booking)
+        unbondable_booking = FactoryGirl.create(:booking)
+        FactoryGirl.create(:charge, :unbondable, booking: unbondable_booking)
 
-      expect(Booking.bondable.count).to eq(1)
-      expect(Booking.bondable.first).to eq(bondable_booking)
+        expect(Booking.bondable.count).to eq(1)
+        expect(Booking.bondable.first).to eq(bondable_booking)
+      end
+
+      it 'should only return booking once for multiple bondable charges' do
+        bondable_booking = FactoryGirl.create(:booking)
+        FactoryGirl.create(:charge, booking: bondable_booking)
+        FactoryGirl.create(:charge, booking: bondable_booking)
+
+        expect(Booking.bondable.count).to eq(1)
+        expect(Booking.bondable.first).to eq(bondable_booking)
+      end
     end
   end
 
   describe 'bond_total' do
-    it 'returns sum of bond amounts for charges' do
+    it 'returns sum of bond amounts for its charges' do
       booking = FactoryGirl.create(:booking)
       FactoryGirl.create(:charge, booking: booking, bond_amount: 10.0)
       FactoryGirl.create(:charge, booking: booking, bond_amount: 20.0)
@@ -77,6 +94,12 @@ describe Booking, type: :model do
       FactoryGirl.create(:charge, booking: booking, bond_amount: 20.0)
 
       expect(booking.bond_total).to eq(20.0)
+    end
+
+    it 'returns 0 if no charges present' do
+      booking = FactoryGirl.create(:booking)
+
+      expect(booking.bond_total).to eq(0)
     end
   end
 
