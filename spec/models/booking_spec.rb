@@ -19,7 +19,7 @@ RSpec.describe Booking do
         to include(Booking::MULTIPLE_ACTIVE_BOOKINGS_ERROR)
     end
 
-    it "is invalid without a person id" do
+    it 'is invalid without a person id' do
       booking = FactoryGirl.build(:booking, person_id: nil)
 
       expect(booking).not_to be_valid

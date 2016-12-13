@@ -1,5 +1,6 @@
 class Booking < ActiveRecord::Base
-  MULTIPLE_ACTIVE_BOOKINGS_ERROR = "cannot create two active bookings for a single person".freeze
+  MULTIPLE_ACTIVE_BOOKINGS_ERROR =
+    'cannot create two active bookings for a single person'.freeze
 
   self.primary_key = :jms_booking_id
   belongs_to :person, :foreign_key => :person_id, :primary_key => :jms_person_id
@@ -18,7 +19,7 @@ class Booking < ActiveRecord::Base
   validate :only_one_active_booking
 
   def only_one_active_booking
-    if person && person.bookings.active.where.not(id: self.id).any?
+    if person && person.bookings.active.where.not(id: id).any?
       errors.add(:release_date_time, MULTIPLE_ACTIVE_BOOKINGS_ERROR)
     end
   end
