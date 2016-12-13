@@ -6,10 +6,11 @@
     = f.label :password, "New password"
     %br/
     = f.password_field :password, autofocus: true, autocomplete: "off"
+  %br/
   .field
     = f.label :password_confirmation, "Confirm new password"
     %br/
     = f.password_field :password_confirmation, autocomplete: "off"
+  %br/
   .actions
-    = f.submit "Change my password"
-= render "devise/shared/links"
+    = f.submit "Change my password", class: "btn btn-default"

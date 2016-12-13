@@ -15,6 +15,7 @@
 /tmp/pids
 /tmp/sessions
 /tmp/sockets
+/tmp/letter_opener
 
 # Ignore Apple metadata files
 .DS_Store

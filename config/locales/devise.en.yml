@@ -17,6 +17,8 @@ en:
       unauthenticated: "You need to sign in or sign up before continuing."
       unconfirmed: "You have to confirm your email address before continuing."
     mailer:
+      invitation_instructions:
+        subject: "Welcome to the Jail Dashboard"
       confirmation_instructions:
         subject: "Confirmation instructions"
       reset_password_instructions:

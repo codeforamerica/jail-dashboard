@@ -1,11 +1,19 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :skip => [:registrations]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  as :user do
+    get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
+    put 'users' => 'devise/registrations#update', :as => 'user_registration'
+  end
+  resources :users
+  get '/users' => 'users#index'
+  # delete '/users/:id' => 'users#destroy', :as => 'user'
 
   root 'pages#home'
   get 'healthcheck' => 'pages#healthcheck'
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 

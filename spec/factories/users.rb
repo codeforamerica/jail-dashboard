@@ -1,6 +1,11 @@
 FactoryGirl.define do
   factory :user do
-    email "admin@example.com"
-    password "1q2w3e4r5t6y7u"
+    email Faker::Internet.email
+    password "password"
+    role User::ROLES.second
+
+    trait :admin do
+      role User::ROLES.first
+    end
   end
 end

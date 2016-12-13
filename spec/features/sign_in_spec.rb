@@ -1,13 +1,6 @@
 require 'rails_helper'
 
 describe 'sign in' do
-  def sign_in(email, password)
-    visit new_user_session_path
-    fill_in 'Email', with: email
-    fill_in 'Password', with: password
-    click_button 'Log in'
-  end
-
   it 'should allow a user with valid credentials to sign in' do
     visit '/'
     user = FactoryGirl.create(:user)

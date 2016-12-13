@@ -1,0 +1,13 @@
+- if can? :manage, User
+  %h2= t "devise.invitations.new.header"
+  = form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f|
+    = devise_error_messages!
+    %br/
+    .field
+      = f.label :email
+      %br/
+      = f.email_field :email
+    %br/
+    %p= f.submit t("devise.invitations.new.submit_button"), class: "btn btn-default"
+- else
+  We're sorry, you are not allowed to invite new users to the Jail Dashboard. Please reach out to a site administrator to ask about these permissions.

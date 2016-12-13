@@ -7,6 +7,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/poltergeist'
 require 'devise'
+require 'support/auth_helpers'
 
 Capybara.javascript_driver = :poltergeist
 
@@ -58,7 +59,7 @@ RSpec.configure do |config|
 
   config.include Devise::Test::ControllerHelpers, :type => :controller
   config.include Warden::Test::Helpers
-
+  config.include AuthHelpers
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:

@@ -1,0 +1,20 @@
+.container
+  %h3 Manage Users
+  %table.table
+    %tr
+      %th Email Address
+      %th Role
+      %th
+    - @users.each do |u|
+      %tr
+        %td= u.email
+        - if u.role == "admin"
+          %td
+            = u.role
+            = link_to("(demote)", user_path(u, "role" => "user"), :action => :update, :method => :put, data: {:confirm => "Revoke admin access for this user?"})
+        - else
+          %td
+            =u.role
+            = link_to("(make admin)", user_path(u, "role" => "admin"), :action => :update, :method => :put, data: {:confirm => "Make this user an admin?"})
+        %td= link_to "delete", u, data: {confirm:"Are you sure you want to revoke access for this user? This cannot be undone."}, :method => :delete
+%p= link_to "Invite A New User", new_user_invitation_path
