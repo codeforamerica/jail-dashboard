@@ -2,8 +2,8 @@ require 'faker'
 
 FactoryGirl.define do
   factory :charge do
-    jms_charge_id '12345'
-    booking_id '98765'
+    sequence(:jms_charge_id) { |n| format('%05d', n) }
+    booking
     code '02015'
     description 'theft'
     category 'misdemeanor'
