@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :user do
     email Faker::Internet.email
-    password "password"
+    password 'password'
     role User::ROLES.second
 
     trait :admin do
