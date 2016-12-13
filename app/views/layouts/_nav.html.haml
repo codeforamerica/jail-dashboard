@@ -16,12 +16,12 @@
               %span.caret
             %ul.dropdown-menu
               %li
-                =link_to "Change Password",  edit_user_registration_path, method: 'get'
+                = link_to "Change Password",  edit_user_registration_path, method: 'get'
               - if can? :manage, User
                 %li
-                  =link_to "Manage Users", users_path, method: 'get'
-              %li.divider{:role => "separator"}
+                  = link_to "Manage Users", users_path, method: 'get'
+              %li.divider{ :role => "separator" }
               %li
-                =link_to "Log Out", destroy_user_session_path, method: :delete
+                = link_to "Log Out", destroy_user_session_path, method: :delete
     / /.navbar-collapse
   / /.container-fluid
