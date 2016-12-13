@@ -6,7 +6,7 @@
       %h3 People Summary
       %br
 
-      %table.table.table-striped.table-responsive
+      %table.table.table-responsive
         %tr
           %th Total # people in system
           %td= @people.count
@@ -29,10 +29,10 @@
     .col-md-4
       %h3 Bookings Summary
       %br
-      %table.table.table-striped.table-responsive
+      %table.table.table-responsive
         %tr
           %th Total # active bookings
-          %td=@bookings.where(release_date_time: nil).count
+          %td= @bookings.where(release_date_time: nil).count
 
       %h4 Processing Status
 
@@ -42,7 +42,7 @@
         html_class: 'processing-status'
 
       %h4 Current Week
-      %table.table.table-striped.table-responsive.booking-stats
+      %table.table.table-responsive.booking-stats
         %tr.current-week-booked
           %th= @weekly_bookings.count
           %td people booked within past week
@@ -72,3 +72,18 @@
         records: @active_charges,
         attribute: :description,
         html_class: 'charge-types'
+
+    .col-md-12.bonds
+      %h3 People who didn't post bond
+      %p Current inmates with $500 or smaller bonds
+
+      %table.table.table-striped.table-responsive
+        %thead
+          %tr
+            %th Name
+            %th Bond
+        %tbody
+          - @target_bond_people.each do |person|
+            %tr
+              %th #{person.last_name}, #{person.first_name}
+              %td= number_to_currency(person.active_booking.bond_total, precision: 0)
