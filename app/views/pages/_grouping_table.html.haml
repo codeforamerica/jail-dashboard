@@ -5,11 +5,11 @@
 %div{ class: html_class }
   .breakdown-bars
     - grouped_records.each do |bucket, grouped|
-      .breakdown-bar{ style: "flex: 0 1 #{present_percent(grouped.count, records.count)}" }
+      .breakdown-bar{ style: "flex: 0 1 #{present_percent(grouped.count, records.size)}" }
 
   %table.table.table-striped.table-responsive.breakdown-table
     - grouped_records.each do |bucket, grouped|
       %tr{ class: "breakdown-row #{bucket.downcase}" }
         %th= bucket
         %td= grouped.count
-        %td= present_percent(grouped.count, records.count)
+        %td= present_percent(grouped.count, records.size)
