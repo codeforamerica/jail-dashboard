@@ -31,6 +31,17 @@ class PagesController < ApplicationController
     )
   end
 
+  def bookings
+    respond_to do |format|
+      format.csv do
+        render text: Booking.to_csv
+      end
+    end
+  end
+
+  def crossfilter
+  end
+
   def healthcheck
   end
 end

@@ -10,6 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require crossfilter2
 //= require d3
 //= require jquery
 //= require jquery_ujs

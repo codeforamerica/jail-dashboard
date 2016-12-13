@@ -1,0 +1,31 @@
+<style>
+</style>
+
+<h1>Crossfilter</h1>
+
+<div class="chart"></div>
+<div class="table"></div>
+
+<%= javascript_include_tag 'application' %>
+<script>
+
+d3.csv('/bookings.csv', (err, data) => {
+  var bookings = crossfilter(data);
+
+  var all = bookings.groupAll();
+
+  var bookingsByStartDate = bookings.dimension(function(d) { return d.booking_date_time; });
+  var bookingsByEndDate = bookings.dimension(function(d) { return d.release_date_time; });
+
+  group = bookingsByStartDate.group(d => parseInt(new Date(d).getTime() / 60 / 60 / 24, 10))
+
+  debugger;
+
+  var hours = hour.group(Math.floor);
+  var delay = bookings.dimension(function(d) { return Math.max(-60, Math.min(149, d.delay)); });
+  var delays = delay.group(function(d) { return Math.floor(d / 10) * 10; });
+  var distance = bookings.dimension(function(d) { return Math.min(1999, d.distance); });
+  var distances = distance.group(function(d) { return Math.floor(d / 50) * 50; });
+});
+
+</script>
