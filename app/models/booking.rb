@@ -14,7 +14,7 @@ class Booking < ActiveRecord::Base
   scope :bondable, -> { joins(:charges).merge(Charge.bondable) }
 
   def bond_total
-    charges.map{ |c| c.bond_amount || 0 }.reduce(:+)
+    charges.map { |c| c.bond_amount || 0 }.reduce(:+)
   end
 
   def bondable?

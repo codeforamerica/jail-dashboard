@@ -8,16 +8,15 @@ describe 'bonds data' do
   def person_with_charge(first_name, last_name, bond_amount, released: false)
     person = FactoryGirl.create(:person, first_name: first_name, last_name: last_name)
 
-    if released
-      booking = FactoryGirl.create(:booking, :inactive, person: person)
-    else
-      booking = FactoryGirl.create(:booking, person: person)
-    end
+    booking = if released
+                FactoryGirl.create(:booking, :inactive, person: person)
+              else
+                FactoryGirl.create(:booking, person: person)
+              end
 
     FactoryGirl.create(:charge,
-       booking: booking,
-       bond_amount: bond_amount
-    )
+                       booking: booking,
+                       bond_amount: bond_amount)
     person
   end
 
@@ -30,9 +29,8 @@ describe 'bonds data' do
     # Target charges
     target_person_one = person_with_charge('Annie', 'Dog', 100.0)
     FactoryGirl.create(:charge,
-      booking: target_person_one.active_booking,
-      bond_amount: 75.0
-    )
+                       booking: target_person_one.active_booking,
+                       bond_amount: 75.0)
     person_with_charge('Effort', 'Pup', 50.0)
 
     visit '/'
