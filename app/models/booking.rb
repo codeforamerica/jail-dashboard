@@ -31,6 +31,6 @@ class Booking < ActiveRecord::Base
   end
 
   def bondable?
-    bond_total.positive?
+    bond_total > 0
   end
 end
