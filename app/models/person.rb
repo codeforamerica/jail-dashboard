@@ -13,7 +13,7 @@ class Person < ActiveRecord::Base
   self.primary_key = :jms_person_id
   has_many :bookings, foreign_key: :person_id, primary_key: :jms_person_id
 
-  scope :active, -> { joins(:bookings).merge(Booking.active) }
+  scope :active, -> { joins(:bookings).merge(Booking.active).uniq }
   scope :bondable, -> { joins(:bookings).merge(Booking.bondable) }
 
   def active_booking

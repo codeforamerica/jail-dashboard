@@ -17,6 +17,15 @@ describe Person do
         expect(Person.active.count).to eq(1)
         expect(Person.active.first).to eq(active_person)
       end
+
+      it 'only returns person with multiple bookings once' do
+        active_person = FactoryGirl.create(:person)
+        FactoryGirl.create(:booking, person: active_person)
+        FactoryGirl.create(:booking, person: active_person)
+
+        expect(Person.active.count).to eq(1)
+        expect(Person.active.first).to eq(active_person)
+      end
     end
 
     describe 'bondable' do
