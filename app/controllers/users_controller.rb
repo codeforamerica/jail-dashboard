@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :configure_permitted_parameters, if: :devise_controller?
-  load_and_authorize_resource except: [:edit]
+  load_and_authorize_resource only: [:index]
 
   def index
     @users = User.where.not(id: current_user.id)
@@ -23,11 +22,5 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: "This user's account was successfully deleted." }
       format.json { head :no_content }
     end
-  end
-
-  private
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:account_update, keys: [:role])
   end
 end
