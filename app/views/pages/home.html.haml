@@ -3,7 +3,7 @@
     .chart
 
     .col-md-4
-      %h3 People Summary
+      %h3 Demographics
       %br
 
       %h4 Gender
@@ -27,7 +27,7 @@
           %th Total # active bookings
           %td= @bookings.where(release_date_time: nil).count
 
-      %h4 Processing Status
+      %h4 Case Status
 
       = render "grouping_table",
         records: @active_bookings,
