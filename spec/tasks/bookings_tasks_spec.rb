@@ -113,6 +113,5 @@ describe 'bookings rake tasks' do
       expect(oldest_booking.reload.released?).to eq(true)
       expect(newest_booking.reload.released?).to eq(false)
     end
-
   end
 end

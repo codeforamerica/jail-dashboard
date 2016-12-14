@@ -41,7 +41,7 @@ namespace :bookings do
 
       people = Person.order(:created_at).last(count)
 
-      people.each_with_index do |person, index|
+      people.each do |person|
         if person.bookings.active.any?
           person.bookings.active.each do |booking|
             booking.release_date_time = DateTime.now
