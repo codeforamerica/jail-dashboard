@@ -42,7 +42,7 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
     byebug (9.0.6)
-    cancan (1.6.10)
+    cancancan (1.15.0)
     capybara (2.10.1)
       addressable
       mime-types (>= 1.16)
@@ -293,7 +293,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-import
-  cancan
+  cancancan
   capybara
   coffee-rails (~> 4.1.0)
   coffee-script-source (= 1.8.0)

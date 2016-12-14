@@ -39,7 +39,7 @@ gem 'coffee-script-source', '1.8.0'
 
 gem 'devise'
 gem 'devise_invitable'
-gem 'cancan'
+gem 'cancancan'
 
 gem 'dotenv-rails'
 
