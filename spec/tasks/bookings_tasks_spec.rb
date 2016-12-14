@@ -82,4 +82,37 @@ describe 'bookings rake tasks' do
       expect(expected_statuses).to include(*actual_statuses)
     end
   end
+
+  describe 'release' do
+    include_context 'rake'
+
+    before(:each) do
+      @bookings = FactoryGirl.create_list(:booking, 10)
+    end
+
+    let(:task_name) do
+      'bookings:release'
+    end
+
+    it 'releases 10 active bookings by default' do
+      expect { run_task }.to change { Booking.inactive.count }.by(10)
+    end
+
+    it 'accepts number of bookings to create as argument' do
+      expect { run_task('3') }.to change { Booking.inactive.count }.by(3)
+    end
+
+    it 'releases oldest bookings first' do
+      Booking.delete_all
+
+      oldest_booking = FactoryGirl.create(:booking, booking_date_time: 1.week.ago)
+      newest_booking = FactoryGirl.create(:booking, booking_date_time: 1.day.ago)
+
+      run_task('1')
+
+      expect(oldest_booking.reload.released?).to eq(true)
+      expect(newest_booking.reload.released?).to eq(false)
+    end
+
+  end
 end

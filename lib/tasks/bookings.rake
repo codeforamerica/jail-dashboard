@@ -13,6 +13,22 @@ namespace :bookings do
     end
   end
 
+  desc 'release oldest active bookings'
+  task :release, [:count] => [:environment] do |_, args|
+    count = (args[:count] || 10).to_i
+
+    puts "Attempting to release #{count} oldest active bookings"
+    bookings = Booking.active.order(:created_at).first(count)
+    puts "Found #{Booking.active.size} active bookings. Releasing #{bookings.size}..."
+
+    bookings.each do |booking|
+      booking.release_date_time = DateTime.now
+      booking.save
+    end
+
+    puts "Released #{bookings.size} active bookings."
+  end
+
   desc 'generate bookings within the last week'
   task :generate_weekly, [:count] => [:environment] do |_, args|
     count = (args[:count] || 10).to_i
