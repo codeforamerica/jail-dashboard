@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   rescue_from CanCan::AccessDenied do |exception|
+    puts "If this appears in the log, it's in the CanCan rescue"
     redirect_to root_url
   end
 end
