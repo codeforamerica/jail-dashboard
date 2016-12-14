@@ -17,17 +17,21 @@ namespace :bookings do
   task :generate_weekly, [:count] => [:environment] do |_, args|
     count = (args[:count] || 10).to_i
 
-    puts "Generating #{count} bookings within last week"
+    puts "Generating #{count} bookings within last week..."
+    released_bookings = 0
+
     Booking.transaction do
       facilities = ['Main Jail Complex', 'Medical Facility', 'County Correctional Center']
 
-      people = Person.last(count)
+      people = Person.order(:created_at).last(count)
 
       people.each_with_index do |person, index|
         if person.bookings.active.any?
           person.bookings.active.each do |booking|
             booking.release_date_time = DateTime.now
             booking.save
+
+            released_bookings += 1
           end
         end
 
@@ -35,7 +39,7 @@ namespace :bookings do
         Booking.create!(
           jms_booking_id: Faker::Code.ean,
           booking_date_time: booking_date_time,
-          release_date_time: [booking_date_time, nil].sample,
+          release_date_time: nil,
           inmate_number: Faker::Number.hexadecimal(10),
           facility_name: facilities.sample,
           cell_id: Faker::Address.building_number,
@@ -45,6 +49,7 @@ namespace :bookings do
       end
     end
 
-    puts "Successfully generated #{count} bookings within last week"
+    puts "Successfully generated #{count} active bookings within the last week,"
+    puts "  and released #{released_bookings} previously active bookings in the process."
   end
 end

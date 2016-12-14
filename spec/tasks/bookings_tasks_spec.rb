@@ -34,13 +34,15 @@ describe 'bookings rake tasks' do
     it 'closes any active bookings before assigning' do
       booking = FactoryGirl.create(:booking, person: @people.last)
 
-      expect(booking.release_date_time).to be_nil
+      expect(booking.released?).to eq(false)
       expect(Booking.count).to eq(1)
+      expect(Booking.inactive.count).to eq(0)
 
       run_task('3')
 
-      expect(booking.reload.release_date_time).to_not be_nil
+      expect(booking.reload.released?).to eq(true)
       expect(Booking.count).to eq(4)
+      expect(Booking.inactive.count).to eq(1)
     end
 
     it 'assigns existing people to bookings' do

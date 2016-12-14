@@ -125,4 +125,24 @@ describe Booking, type: :model do
       expect(booking.bondable?).to eq(false)
     end
   end
+
+  describe 'released?' do
+    it 'returns true if release_date_time is present and before current time' do
+      booking = FactoryGirl.create(:booking, release_date_time: 1.day.ago)
+
+      expect(booking.released?).to eq(true)
+    end
+
+    it 'returns false if release_date_time is after current time' do
+      booking = FactoryGirl.create(:booking, release_date_time: 1.day.from_now)
+
+      expect(booking.released?).to eq(false)
+    end
+
+    it 'returns false if release_date_time not present' do
+      booking = FactoryGirl.create(:booking, release_date_time: nil)
+
+      expect(booking.released?).to eq(false)
+    end
+  end
 end
