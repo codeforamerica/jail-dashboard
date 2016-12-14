@@ -14,7 +14,7 @@ describe 'processing status' do
     visit '/'
 
     within('.processing-status') do
-      expect(page).to have_css('tr', text: 'Pre-trial 2 66.7%')
+      expect(page).to have_css('tr', text: 'Pre Trial 2 66.7%')
       expect(page).to have_css('tr', text: 'Sentenced 1 33.3%')
     end
   end

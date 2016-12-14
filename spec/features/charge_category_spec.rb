@@ -13,8 +13,8 @@ describe "charge category data" do
     visit "/"
 
     within(".charge-categories") do
-      expect(page).to have_css("tr", text: "misdemeanor 1")
-      expect(page).not_to have_css("tr", text: "felony 1")
+      expect(page).to have_css("tr", text: "Misdemeanor 1")
+      expect(page).not_to have_css("tr", text: "Felony 1")
     end
   end
 end
