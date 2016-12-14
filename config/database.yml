@@ -1,12 +1,15 @@
-development: &default
+default: &default
   adapter: postgresql
   encoding: unicode
-  database: jail_dashboard_dev
   pool: 5
   port: 5432
   username: postgres
   password: postgres
   host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
+
+development:
+  <<: *default
+  database: jail_dashboard_dev
 
 test:
   <<: *default
