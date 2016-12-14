@@ -13,9 +13,9 @@
  *= require_tree .
  */
 
-@import 'chart';
+@import "charts/population_capacity";
 
- .tidy {
+.tidy {
   height: 600px;
   overflow: scroll;
- }
+}
