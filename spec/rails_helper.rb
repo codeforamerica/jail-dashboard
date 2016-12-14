@@ -6,6 +6,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'devise'
+require 'support/auth_helpers'
 
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
@@ -20,6 +21,8 @@ RSpec.configure do |config|
 
   config.include Devise::Test::ControllerHelpers, :type => :controller
   config.include Warden::Test::Helpers
+  config.include AuthHelpers
 
+  # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
 end
