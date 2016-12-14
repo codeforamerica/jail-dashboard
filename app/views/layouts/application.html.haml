@@ -5,15 +5,13 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
+    = render 'layouts/nav'
     .container
       - if flash[:notice].present?
         %p= flash[:notice]
       - if flash[:alert].present?
         %p= flash[:alert]
       = yield
-      .row
-        - if current_user
-          %p=link_to "Log Out", destroy_user_session_path, method: :delete
 
     = include_gon
     = javascript_include_tag 'application'

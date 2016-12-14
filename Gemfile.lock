@@ -42,6 +42,7 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
     byebug (9.0.6)
+    cancancan (1.15.0)
     capybara (2.10.1)
       addressable
       mime-types (>= 1.16)
@@ -70,6 +71,9 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
+    devise_invitable (1.7.0)
+      actionmailer (>= 4.0.0)
+      devise (>= 4.0.0)
     diff-lcs (1.2.5)
     dotenv (2.1.1)
     dotenv-rails (2.1.1)
@@ -136,6 +140,8 @@ GEM
       less (~> 2.6.0)
       sprockets (> 2, < 4)
       tilt
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     libv8 (3.16.14.15)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -287,12 +293,14 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-import
+  cancancan
   capybara
   coffee-rails (~> 4.1.0)
   coffee-script-source (= 1.8.0)
   d3-rails
   database_cleaner
   devise
+  devise_invitable
   dotenv-rails
   es6-rails
   factory_girl_rails
@@ -304,6 +312,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   launchy
+  letter_opener
   pg
   poltergeist
   pry-byebug

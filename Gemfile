@@ -38,6 +38,8 @@ gem 'activerecord-import'
 gem 'coffee-script-source', '1.8.0'
 
 gem 'devise'
+gem 'devise_invitable'
+gem 'cancancan'
 
 gem 'dotenv-rails'
 
@@ -70,6 +72,7 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+  gem 'letter_opener'
 end
 
 group :test do
