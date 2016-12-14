@@ -6,14 +6,6 @@
       %h3 People Summary
       %br
 
-      %table.table.table-responsive
-        %tr
-          %th Total # people in system
-          %td= @people.count
-        %tr
-          %th People with active bookings
-          %td= @active_people.count
-
       %h4 Gender
       = render "grouping_table",
         records: @active_people,
@@ -29,7 +21,8 @@
     .col-md-4
       %h3 Bookings Summary
       %br
-      %table.table.table-responsive
+
+      %table.table.table-striped.table-responsive
         %tr
           %th Total # active bookings
           %td= @bookings.where(release_date_time: nil).count
