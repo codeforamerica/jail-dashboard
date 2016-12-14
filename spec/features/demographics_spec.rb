@@ -19,8 +19,8 @@ describe 'demographics' do
     visit '/'
 
     within('.demographics-gender') do
-      expect(page).to have_css('tr', text: 'male 1 50.0%')
-      expect(page).to have_css('tr', text: 'female 1 50.0%')
+      expect(page).to have_css('tr', text: 'Male 1 50.0%')
+      expect(page).to have_css('tr', text: 'Female 1 50.0%')
     end
   end
 
@@ -41,7 +41,7 @@ describe 'demographics' do
     )
     within('.demographics-race') do
       Person::RACES.each do |race|
-        expect(page).to have_css('tr', text: "#{race} 1 #{expected_percentage}")
+        expect(page).to have_css('tr', text: "#{race.titlecase} 1 #{expected_percentage}")
       end
     end
   end

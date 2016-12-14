@@ -33,4 +33,8 @@ class Booking < ActiveRecord::Base
   def bondable?
     bond_total > 0
   end
+
+  def released?
+    release_date_time.present? && release_date_time < DateTime.now
+  end
 end

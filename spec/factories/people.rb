@@ -10,4 +10,10 @@ FactoryGirl.define do
     gender Person::GENDERS.first
     race Person::RACES.first
   end
+
+  trait :with_booking do
+    after(:create) do |person|
+      create :booking, person: person
+    end
+  end
 end
