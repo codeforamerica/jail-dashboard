@@ -18,5 +18,10 @@
 //= require_tree .
 
 window.runApplication = () => {
-  new PopulationCapacityChart(gon.population_capacity_chart).render(d3.select('.chart'));
+  const chartElement = d3.select('.chart');
+
+  const chart = new PopulationCapacityChart(gon.population_capacity_chart);
+  chart.render(chartElement);
+
+  d3.select(window).on('resize', () => chart.redraw(chartElement));
 };

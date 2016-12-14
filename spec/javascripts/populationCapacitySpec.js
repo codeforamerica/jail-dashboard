@@ -14,31 +14,6 @@ describe('Population Capacity bar chart', () => {
       };
   });
 
-  describe('render()', () => {
-    beforeEach(() => {
-      chartElement = d3.select('body')
-        .append('div')
-          .attr('class', 'chartElement');
-    });
-
-    afterEach(() => {
-      chartElement.remove();
-    });
-
-    it('scales bar width to number of active bookings', () => {
-      new PopulationCapacityChart(args).render(chartElement);
-
-      const widthOfChart = 740;
-      const expectedWidth = args.active_bookings / args.markers.hard_cap * widthOfChart;
-
-      const bar = chartElement.select('.active-bookings');
-      const barChartWidth = parseFloat(bar.attr('width'), 10);
-
-      expect(barChartWidth).toEqual(expectedWidth);
-    });
-
-  });
-
   describe('graphMaximumX', () => {
     it('returns active bookings when more active bookings than hard cap', () => {
       args.active_bookings = args.markers.hard_cap + 10;

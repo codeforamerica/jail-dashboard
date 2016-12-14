@@ -42,30 +42,39 @@ class PopulationCapacityChart {
   }
 
   render(targetElement) {
+    const targetWidth = parseInt(targetElement.style('width'));
+
+    const renderedHeight = 200;
+    const renderedWidth = targetWidth;
+
     const markerValues = objectValues(this.args.markers);
 
-    const margin = { top: 20, right: 20, bottom: 60, left: 40 };
-    const width = 800 - margin.left - margin.right;
-    const height = 200 - margin.top - margin.bottom;
+    const margin = { top: 20, right: 20, bottom: 60, left: 20 };
 
-    const svg = targetElement
-      .append('svg')
-        .attr('height', height + margin.top + margin.bottom)
-        .attr('width', width + margin.left + margin.right)
-      .append('g')
-        .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+    const width = renderedWidth - margin.left - margin.right;
+    const height = renderedHeight - margin.top - margin.bottom;
+
+    const svg = targetElement.append('svg')
+      .attr('preserveAspectRatio', 'none')
+      .attr('height', renderedHeight)
+      .attr('width', renderedWidth);
+
+    // this.responsivefy(svg);
+
+    const chart = svg.append('g')
+      .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
     const xScale = d3.scaleLinear()
             .domain([0, this.graphMaximumX()])
             .range([0, width]);
 
-    svg.append('rect')
+    chart.append('rect')
       .attr('class', 'active-bookings')
       .attr('width', xScale(this.args.active_bookings))
       .attr('y', height / 2)
       .attr('height', height / 2);
 
-    svg.append('rect')
+    chart.append('rect')
       .attr('class', 'red-zone')
       .attr('width', xScale(this.args.markers.hard_cap - this.args.markers.red_zone_start))
       .attr('x', xScale(this.args.markers.red_zone_start))
@@ -77,12 +86,12 @@ class PopulationCapacityChart {
 
     const xAxis = d3.axisBottom(xScale);
 
-    svg.append('g')
+    chart.append('g')
       .attr('transform', 'translate(0, ' + height + ')')
       .attr('class', 'marker-axis')
       .call(markerAxis);
 
-    svg.append('g')
+    chart.append('g')
       .attr('transform', 'translate(0, ' + height + ')')
         .call(xAxis);
 
@@ -102,8 +111,13 @@ class PopulationCapacityChart {
 
     if (overThreshold) {
       statsElement.append('div')
-          .attr('class', 'over-threshold-count')
-          .text(`${overThreshold.amountOver} over ${this.labels[overThreshold.threshold]}`);
+        .attr('class', 'over-threshold-count')
+        .text(`${overThreshold.amountOver} over ${this.labels[overThreshold.threshold]}`);
     }
+  }
+
+  redraw(targetElement) {
+    targetElement.selectAll('*').remove();
+    this.render(targetElement);
   }
 };
