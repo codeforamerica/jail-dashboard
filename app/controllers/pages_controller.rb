@@ -9,6 +9,7 @@ class PagesController < ApplicationController
     @bookings = Booking.all
     @active_bookings = @bookings.active
     @weekly_bookings = @bookings.last_week
+    @weekly_releases = @bookings.released_last_week
 
     @active_charges = Charge.joins(:booking).merge(Booking.active)
 
