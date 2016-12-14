@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource except: [:edit]
 
   def index
-    @users = User.where.not(id:current_user.id)
+    @users = User.where.not(id: current_user.id)
   end
 
   def update
@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     if @user.update_attribute(:role, params[:role])
       redirect_to users_url, notice: "This user's role was successfully changed."
     else
-      redirect_to users_url, notice: "Something went wrong."
+      redirect_to users_url, notice: 'Something went wrong.'
     end
   end
 
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: "This user's account was successfully deleted."}
+      format.html { redirect_to users_url, notice: "This user's account was successfully deleted." }
       format.json { head :no_content }
     end
   end
@@ -30,5 +30,4 @@ class UsersController < ApplicationController
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:account_update, keys: [:role])
   end
-
 end
