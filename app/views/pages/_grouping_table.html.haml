@@ -10,6 +10,6 @@
   %table.table.table-striped.table-responsive.breakdown-table
     - grouped_records.each do |bucket, grouped|
       %tr{ class: "breakdown-row #{bucket.downcase}" }
-        %th= bucket
+        %th= bucket.titlecase
         %td= grouped.count
         %td= present_percent(grouped.count, records.size)
