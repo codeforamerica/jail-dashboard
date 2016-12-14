@@ -19,10 +19,18 @@ namespace :bookings do
 
     puts "Generating #{count} bookings within last week"
     Booking.transaction do
-      people = Person.last(count)
       facilities = ['Main Jail Complex', 'Medical Facility', 'County Correctional Center']
 
-      count.times do |index|
+      people = Person.last(count)
+
+      people.each_with_index do |person, index|
+        if person.bookings.active.any?
+          person.bookings.active.each do |booking|
+            booking.release_date_time = DateTime.now
+            booking.save
+          end
+        end
+
         booking_date_time = Faker::Time.between(6.days.ago, DateTime.now)
         Booking.create!(
           jms_booking_id: Faker::Code.ean,
@@ -32,7 +40,7 @@ namespace :bookings do
           facility_name: facilities.sample,
           cell_id: Faker::Address.building_number,
           status: [Booking::PRE_TRIAL, Booking::SENTENCED].sample,
-          person_id: people[index].jms_person_id
+          person_id: person.jms_person_id
         )
       end
     end

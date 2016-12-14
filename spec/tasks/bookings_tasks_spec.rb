@@ -6,7 +6,7 @@ describe 'bookings rake tasks' do
     include_context 'rake'
 
     before(:each) do
-      FactoryGirl.create_list(:person, 10)
+      @people = FactoryGirl.create_list(:person, 10)
     end
 
     let(:task_name) do
@@ -29,6 +29,18 @@ describe 'bookings rake tasks' do
       expect(booking_dates.first).to be_within(1.week).of(DateTime.now)
       expect(booking_dates.second).to be_within(1.week).of(DateTime.now)
       expect(booking_dates.third).to be_within(1.week).of(DateTime.now)
+    end
+
+    it 'closes any active bookings before assigning' do
+      booking = FactoryGirl.create(:booking, person: @people.last)
+
+      expect(booking.release_date_time).to be_nil
+      expect(Booking.count).to eq(1)
+
+      run_task('3')
+
+      expect(booking.reload.release_date_time).to_not be_nil
+      expect(Booking.count).to eq(4)
     end
 
     it 'assigns existing people to bookings' do
