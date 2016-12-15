@@ -1,5 +1,3 @@
-require 'csv'
-
 class Booking < ActiveRecord::Base
   MULTIPLE_ACTIVE_BOOKINGS_ERROR =
     'must be present for all but a single active booking per person'.freeze
