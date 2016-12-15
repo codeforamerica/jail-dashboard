@@ -24,6 +24,9 @@ class PagesController < ApplicationController
           hard_cap: ENV.fetch("CAPACITY_HARD_CAP").to_i
         },
         active_bookings: @bookings.active.count
+      },
+      crossfilter_tables: {
+        crossfilter_data: @active_bookings.joins(:person).select('jms_person_id, first_name, last_name, status').to_json
       }
     )
   end
