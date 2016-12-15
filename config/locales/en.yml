@@ -21,3 +21,11 @@
 
 en:
   hello: "Hello world"
+
+  breakdown:
+    charge_categories:
+      violation: Technical Violation
+      non_criminal: Other (Hold)
+      ordinance: Civil Violation
+    processing_status:
+      pre_trial: Pre-trial

@@ -41,7 +41,8 @@ describe 'demographics' do
     )
     within('.demographics-race') do
       Person::RACES.each do |race|
-        expect(page).to have_css('tr', text: "#{race.titlecase} 1 #{expected_percentage}")
+        expect(page).
+          to have_css('tr', text: "#{race.titlecase} 1 #{expected_percentage}")
       end
     end
   end
