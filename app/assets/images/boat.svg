@@ -1,0 +1,10 @@
+<svg width="152" height="75" viewBox="0 0 152 75" xmlns="http://www.w3.org/2000/svg">
+    <title>
+        boat
+    </title>
+    <g transform="translate(4 10)" fill="none" fill-rule="evenodd">
+        <path d="M53 16h64.008" stroke="#F6A623" stroke-width="12" stroke-linecap="square"/>
+        <circle fill="#F6A623" cx="30" cy="11" r="11"/>
+        <path stroke="#F6A623" stroke-width="12" d="M0 16l16.501 16.501h111.745l15.11-15.11"/>
+    </g>
+</svg>
