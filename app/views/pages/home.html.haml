@@ -40,9 +40,9 @@
           %th= @weekly_bookings.count
           %td people booked within past week
         %tr.current-week-released
-          - total = @weekly_bookings.count
-          - inactive = @weekly_bookings.inactive.count
-          %th #{inactive} (#{present_percent(inactive, @weekly_bookings.count)})
+          - released = @weekly_releases.count
+          - bookings_one_week_ago = @active_bookings.count + released - @weekly_bookings.count
+          %th #{released} (#{present_percent(released, bookings_one_week_ago)})
           %td people released
 
       %h4 Location
