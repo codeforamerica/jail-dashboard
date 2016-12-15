@@ -59,7 +59,7 @@ class PopulationCapacityChart {
       .attr('height', renderedHeight)
       .attr('width', renderedWidth);
 
-    // this.responsivefy(svg);
+    this.appendPatterns(svg);
 
     const chart = svg.append('g')
       .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
@@ -68,11 +68,7 @@ class PopulationCapacityChart {
             .domain([0, this.graphMaximumX()])
             .range([0, width]);
 
-    chart.append('rect')
-      .attr('class', 'active-bookings')
-      .attr('width', xScale(this.args.active_bookings))
-      .attr('y', height / 2)
-      .attr('height', height / 2);
+    this.drawBar(chart, xScale, height);
 
     chart.append('rect')
       .attr('class', 'red-zone')
@@ -113,6 +109,61 @@ class PopulationCapacityChart {
       statsElement.append('div')
         .attr('class', 'over-threshold-count')
         .text(`${overThreshold.amountOver} over ${this.labels[overThreshold.threshold]}`);
+    }
+  }
+
+  appendPatterns(svg) {
+    const iconSize = 48;
+    const iconPadding = 12;
+    const patternHeight = 85;
+
+    const patternDefs = svg.append('defs');
+
+    patternDefs
+      .append('pattern')
+        .attr('id', 'bed')
+        .attr('patternUnits', 'userSpaceOnUse')
+        .attr('width', iconSize + iconPadding)
+        .attr('height', patternHeight)
+      .append('image')
+        .attr('xlink:href', '/assets/bed.svg')
+        .attr('width', iconSize)
+        .attr('height', iconSize);
+
+    patternDefs
+      .append('pattern')
+        .attr('id', 'boat')
+        .attr('patternUnits', 'userSpaceOnUse')
+        .attr('width', iconSize + iconPadding)
+        .attr('height', patternHeight)
+      .append('image')
+        .attr('xlink:href', '/assets/boat.svg')
+        .attr('width', iconSize)
+        .attr('height', iconSize);
+  }
+
+  drawBar(chart, xScale, height) {
+    const boatsInUse =
+      this.args.active_bookings > this.args.markers.red_zone_start;
+
+    const bedsBarUpperLimit =
+      Math.min(this.args.markers.red_zone_start, this.args.active_bookings);
+
+    chart.append('rect')
+      .attr('class', 'active-bookings active-booking-beds')
+      .attr('width', xScale(bedsBarUpperLimit))
+      .attr('y', height / 2)
+      .attr('fill', 'url(#bed)')
+      .attr('height', height / 2);
+
+    if(boatsInUse) {
+      chart.append('rect')
+        .attr('class', 'active-bookings active-booking-boats')
+        .attr('width', xScale(this.args.active_bookings - bedsBarUpperLimit))
+        .attr('y', height / 2)
+        .attr('x', xScale(bedsBarUpperLimit))
+        .attr('fill', 'url(#boat)')
+        .attr('height', height / 2);
     }
   }
 

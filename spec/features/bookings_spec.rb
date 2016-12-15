@@ -14,7 +14,7 @@ describe 'bookings data' do
 
     within('.booking-stats') do
       expect(page).to have_css('tr', text: '3 people booked within past week')
-      expect(page).to have_css('tr', text: '1 (25.0%) people released')
+      expect(page).to have_css('tr', text: '1 (50.0%) people released')
     end
   end
 end

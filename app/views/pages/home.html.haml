@@ -3,7 +3,7 @@
     .chart
 
     .col-md-4
-      %h3 People Summary
+      %h3 Demographics
       %br
 
       %h4 Gender
@@ -27,7 +27,7 @@
           %th Total # active bookings
           %td= @bookings.where(release_date_time: nil).count
 
-      %h4 Processing Status
+      %h4 Case Status
 
       = render "grouping_table",
         records: @active_bookings,
@@ -41,7 +41,8 @@
           %td people booked within past week
         %tr.current-week-released
           - released = @weekly_releases.count
-          %th #{released} (#{present_percent(released, @active_bookings.count)})
+          - bookings_one_week_ago = @active_bookings.count + released - @weekly_bookings.count
+          %th #{released} (#{present_percent(released, bookings_one_week_ago)})
           %td people released
 
       %h4 Location
