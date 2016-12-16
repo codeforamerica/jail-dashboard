@@ -10,6 +10,7 @@ class FilterTable {
 
   render() {
     this.addFilterButtons('status');
+    this.addFilterButtons('location');
 
     this.table = this.tableElement.append('table')
       .attr('class', 'table table-striped table-responsive');
@@ -19,10 +20,12 @@ class FilterTable {
     header.append('th').text('Name');
     header.append('th').text('JMS ID');
     header.append('th').text('Status');
+    header.append('th').text('Location');
 
     var bookings = crossfilter(this.data);
     var all = bookings.groupAll();
     this.dimensions.status = bookings.dimension(d => d.status);
+    this.dimensions.location = bookings.dimension(d => d.facility_name);
 
     this.body = this.table.append('tbody')
     this.update();
@@ -67,6 +70,6 @@ class FilterTable {
       .append('tr');
 
     update.merge(enter)
-      .html(d => `<td>${d.first_name} ${d.last_name}</td><td>${d.jms_person_id}</td><td>${d.status}</td>`);
+      .html(d => `<td>${d.first_name} ${d.last_name}</td><td>${d.jms_person_id}</td><td>${d.status}</td><td>${d.facility_name}</td>`);
   }
 }

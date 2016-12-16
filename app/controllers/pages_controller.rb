@@ -27,7 +27,8 @@ class PagesController < ApplicationController
       },
       crossfilter_data: crossfilter_data(@active_bookings),
       filter_options: {
-        status: Booking.pluck(:status).uniq
+        status: Booking.pluck(:status).uniq,
+        location: Booking.pluck(:facility_name).uniq,
       },
     )
   end
@@ -40,6 +41,6 @@ class PagesController < ApplicationController
   def crossfilter_data(active_bookings)
     active_bookings.
       joins(:person).
-      select('jms_person_id, first_name, last_name, status')
+      select('jms_person_id, first_name, last_name, status, facility_name')
   end
 end
