@@ -26,7 +26,12 @@ window.runApplication = () => {
 
   d3.select(window).on('resize', () => chart.redraw(chartElement));
 
-  const arr = JSON.parse(gon.crossfilter_tables.crossfilter_data)
-  const filter = new FilterTable(arr, d3.select('.filtered-people'), d3.select('.filters'));
+  const peopleData = gon.crossfilter_data
+  const filter = new FilterTable(
+    peopleData,
+    gon.filter_options,
+    d3.select('.filtered-people'),
+    d3.select('.filters'),
+  );
   filter.render()
 };

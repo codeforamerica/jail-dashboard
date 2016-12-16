@@ -1,6 +1,7 @@
 class FilterTable {
-  constructor(data, tableElement, filterElement) {
+  constructor(data, filters, tableElement, filterElement) {
     this.data = data;
+    this.filters = filters;
     this.tableElement = tableElement;
     this.filterElement = filterElement;
 
@@ -8,7 +9,7 @@ class FilterTable {
   }
 
   render() {
-    this.addFilterButtons();
+    this.addFilterButtons('status');
 
     this.table = this.tableElement.append('table')
       .attr('class', 'table table-striped table-responsive');
@@ -27,32 +28,30 @@ class FilterTable {
     this.update();
   }
 
-  addFilterButtons() {
-    let statusFilters = this
+  addFilterButtons(dimensionName) {
+    let filterGroup = this
       .filterElement
-      .append('div');
+      .append('div')
+      .attr('class', `filter-${dimensionName}`);
 
-    statusFilters
-      .append('button')
-      .text('sentenced')
-      .on('click', () => {
-        this.dimensions.status.filter('Sentenced');
-        this.update();
-      })
+    filterGroup.append('h3')
+      .text(`Filter by ${dimensionName}`)
 
-    statusFilters
-      .append('button')
-      .text('pre-trial')
-      .on('click', () => {
-        this.dimensions.status.filter('Pre-trial');
-        this.update();
-      })
+    this.filters[dimensionName].forEach((filterName) => {
+        filterGroup
+        .append('button')
+        .text(filterName)
+        .on('click', () => {
+            this.dimensions[dimensionName].filter(filterName);
+            this.update();
+            })
+        })
 
-    statusFilters
+    filterGroup
       .append('button')
       .text('all')
       .on('click', () => {
-        this.dimensions.status.filterAll();
+        this.dimensions[dimensionName].filterAll();
         this.update();
       })
   }

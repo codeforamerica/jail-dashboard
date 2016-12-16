@@ -25,12 +25,21 @@ class PagesController < ApplicationController
         },
         active_bookings: @bookings.active.count
       },
-      crossfilter_tables: {
-        crossfilter_data: @active_bookings.joins(:person).select('jms_person_id, first_name, last_name, status').to_json
-      }
+      crossfilter_data: crossfilter_data(@active_bookings),
+      filter_options: {
+        status: Booking.pluck(:status).uniq
+      },
     )
   end
 
   def healthcheck
+  end
+
+  private
+
+  def crossfilter_data(active_bookings)
+    active_bookings.
+      joins(:person).
+      select('jms_person_id, first_name, last_name, status')
   end
 end
