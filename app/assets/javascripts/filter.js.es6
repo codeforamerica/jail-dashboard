@@ -12,6 +12,7 @@ class FilterTable {
     this.addFilterButtons('status');
     this.addFilterButtons('location');
     this.addFilterButtons('gender');
+    this.addFilterButtons('race');
 
     this.table = this.tableElement.append('table')
       .attr('class', 'table table-striped table-responsive');
@@ -28,6 +29,7 @@ class FilterTable {
     this.dimensions.status = bookings.dimension(d => d.status);
     this.dimensions.location = bookings.dimension(d => d.facility_name);
     this.dimensions.gender = bookings.dimension(d => d.gender);
+    this.dimensions.race = bookings.dimension(d => d.race);
 
     this.body = this.table.append('tbody')
     this.update();
