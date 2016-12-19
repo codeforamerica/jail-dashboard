@@ -43,6 +43,16 @@ class PagesController < ApplicationController
   def crossfilter_data(active_bookings)
     active_bookings.
       joins(:person).
-      select('jms_person_id, first_name, last_name, status, facility_name, gender, race')
+      select(
+        :jms_person_id,
+        :first_name,
+        :last_name,
+        :status,
+        :facility_name,
+        :gender,
+        :race,
+        :booking_date_time,
+        :release_date_time,
+      )
   end
 end
