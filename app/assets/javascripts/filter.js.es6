@@ -84,15 +84,15 @@ class FilterTable {
         `<td>${d.status}</td>`,
         `<td>${d.facility_name}</td>`,
         `<td>${this.distanceOfTimeInWords(lengthOfStay)}</td>`,
-      ].join('')
+      ].join('');
     });
   }
 
   lengthOfStay(booking) {
     if(booking.release_date_time)
-      return new Date(booking.release_date_time) - new Date(booking.booking_date_time)
+      return new Date(booking.release_date_time) - new Date(booking.booking_date_time);
     else
-      return new Date() - new Date(booking.booking_date_time)
+      return new Date() - new Date(booking.booking_date_time);
   }
 
   distanceOfTimeInWords(duration) {

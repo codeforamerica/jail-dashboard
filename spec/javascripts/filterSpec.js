@@ -4,7 +4,7 @@ describe('Filtering by demographics', () => {
       const booking = {
         booking_date_time: '2016-12-11T13:13:17.000Z',
         release_date_time: null
-      }
+      };
 
       const table = new FilterTable();
 
@@ -17,7 +17,7 @@ describe('Filtering by demographics', () => {
       const booking = {
         booking_date_time: '2016-12-11T13:13:17.000Z',
         release_date_time: '2018-12-11T13:13:17.000Z'
-      }
+      };
 
       const table = new FilterTable();
 
