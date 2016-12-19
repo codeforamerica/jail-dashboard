@@ -31,7 +31,7 @@ class FilterTable {
     this.dimensions.location = bookings.dimension(d => d.facility_name);
     this.dimensions.gender = bookings.dimension(d => d.gender);
     this.dimensions.race = bookings.dimension(d => d.race);
-    this.dimensions.length_of_stay = bookings.dimension(this.length_of_stay);
+    this.dimensions.lengthOfStay = bookings.dimension(this.lengthOfStay);
 
     this.body = this.table.append('tbody')
     this.update();
@@ -68,7 +68,7 @@ class FilterTable {
   update() {
     let update = this.body
       .selectAll('tr')
-      .data(this.dimensions.length_of_stay.top(Infinity));
+      .data(this.dimensions.lengthOfStay.top(Infinity));
 
     update.exit().remove();
 
@@ -76,14 +76,14 @@ class FilterTable {
       .append('tr');
 
     update.merge(enter).html(d => {
-      let length_of_stay = this.length_of_stay(d);
+      let lengthOfStay = this.lengthOfStay(d);
 
       return [
         `<td>${d.first_name} ${d.last_name}</td>`,
         `<td>${d.jms_person_id}</td>`,
         `<td>${d.status}</td>`,
         `<td>${d.facility_name}</td>`,
-        `<td>${this.distanceOfTimeInWords(length_of_stay)}</td>`,
+        `<td>${this.distanceOfTimeInWords(lengthOfStay)}</td>`,
       ].join('')
     });
   }
