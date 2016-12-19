@@ -83,19 +83,19 @@ class FilterTable {
         `<td>${d.jms_person_id}</td>`,
         `<td>${d.status}</td>`,
         `<td>${d.facility_name}</td>`,
-        `<td>${this.distance_of_time_in_words(length_of_stay)}</td>`,
+        `<td>${this.distanceOfTimeInWords(length_of_stay)}</td>`,
       ].join('')
     });
   }
 
-  length_of_stay(booking) {
+  lengthOfStay(booking) {
     if(booking.release_date_time)
-      return new Date(booking.booking_date_time) - new Date(booking.release_date_time)
+      return new Date(booking.release_date_time) - new Date(booking.booking_date_time)
     else
       return new Date() - new Date(booking.booking_date_time)
   }
 
-  distance_of_time_in_words(duration) {
+  distanceOfTimeInWords(duration) {
     var distance_in_seconds = (duration / 1000);
     var distance_in_minutes = Math.floor(distance_in_seconds / 60);
     distance_in_minutes = Math.abs(distance_in_minutes);
@@ -108,7 +108,7 @@ class FilterTable {
     if (distance_in_minutes < 43200) { return Math.floor(distance_in_minutes / 1440) + ' days'; }
     if (distance_in_minutes < 86400) { return 'about a month'; }
     if (distance_in_minutes < 525960) { return Math.floor(distance_in_minutes / 43200) + ' months'; }
-    if (distance_in_minutes < 1051199) { return 'about a year'; }
+    if (distance_in_minutes < 1051199) { return 'about 1 year'; }
 
     return 'over ' + Math.floor(distance_in_minutes / 525960) + ' years';
   }
