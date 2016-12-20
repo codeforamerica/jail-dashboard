@@ -7,7 +7,7 @@ describe 'demographics' do
     login_as FactoryGirl.create(:user)
   end
 
-  it 'shows gender breakdown of actively booked people' do
+  it 'shows gender breakdown of actively booked people', :js do
     male = FactoryGirl.create(:person, gender: 'male')
     female = FactoryGirl.create(:person, gender: 'female')
     released = FactoryGirl.create(:person, gender: 'female')
@@ -18,13 +18,13 @@ describe 'demographics' do
 
     visit '/'
 
-    within('.demographics-gender') do
-      expect(page).to have_css('tr', text: 'Male 1 50.0%')
-      expect(page).to have_css('tr', text: 'Female 1 50.0%')
+    within('.filters') do
+      expect(page).to have_css('tr', text: 'male 1 50%')
+      expect(page).to have_css('tr', text: 'female 1 50%')
     end
   end
 
-  it 'shows race/ethnicity breakdown of actively booked people' do
+  it 'shows race/ethnicity breakdown of actively booked people', :js do
     Person::RACES.each do |race|
       active = FactoryGirl.create(:person, race: race)
       FactoryGirl.create(:booking, person: active)
@@ -37,12 +37,11 @@ describe 'demographics' do
 
     expected_percentage = number_to_percentage(
       100.0 / Person::RACES.count,
-      precision: 1,
+      precision: 0,
     )
-    within('.demographics-race') do
+    within('.filters') do
       Person::RACES.each do |race|
-        expect(page).
-          to have_css('tr', text: "#{race.titlecase} 1 #{expected_percentage}")
+        expect(page).to have_css('tr', text: "#{race} 1 #{expected_percentage}")
       end
     end
   end
