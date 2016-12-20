@@ -5,7 +5,7 @@ describe 'processing status' do
     login_as FactoryGirl.create(:user)
   end
 
-  it 'shows active pre-trial & sentenced population counts and percentages' do
+  it 'shows active population status counts and percentages', :js do
     FactoryGirl.create(:booking, :inactive, status: Booking::PRE_TRIAL)
 
     FactoryGirl.create_list(:booking, 2, status: Booking::PRE_TRIAL)
@@ -13,9 +13,9 @@ describe 'processing status' do
 
     visit '/'
 
-    within('.processing-status') do
-      expect(page).to have_css('tr', text: 'Pre Trial 2 66.7%')
-      expect(page).to have_css('tr', text: 'Sentenced 1 33.3%')
+    within('.breakdown-table.status') do
+      expect(page).to have_css('.breakdown-row', text: 'Pre-trial 2 67%')
+      expect(page).to have_css('.breakdown-row', text: 'Sentenced 1 33%')
     end
   end
 end

@@ -9,11 +9,6 @@ class FilterTable {
   }
 
   render() {
-    this.addFilterButtons('status');
-    this.addFilterButtons('location');
-    this.addFilterButtons('gender');
-    this.addFilterButtons('race');
-
     this.table = this.tableElement.append('table')
       .attr('class', 'table table-striped table-responsive');
 
@@ -33,8 +28,17 @@ class FilterTable {
     this.dimensions.race = bookings.dimension(d => d.race);
     this.dimensions.lengthOfStay = bookings.dimension(this.lengthOfStay);
 
+    this.filterLabels().forEach(filter => {
+      this.addFilterButtons(filter);
+      this.addBreakdownChart(filter);
+    });
+
     this.body = this.table.append('tbody')
     this.update();
+  }
+
+  filterLabels() {
+    return Object.keys(this.filters);
   }
 
   addFilterButtons(dimensionName) {
@@ -47,14 +51,14 @@ class FilterTable {
       .text(`Filter by ${dimensionName}`)
 
     this.filters[dimensionName].forEach((filterName) => {
-        filterGroup
+      filterGroup
         .append('button')
         .text(filterName)
         .on('click', () => {
-            this.dimensions[dimensionName].filter(filterName);
-            this.update();
-            })
-        })
+          this.dimensions[dimensionName].filter(filterName);
+          this.update();
+        });
+    });
 
     filterGroup
       .append('button')
@@ -63,6 +67,36 @@ class FilterTable {
         this.dimensions[dimensionName].filterAll();
         this.update();
       })
+  }
+
+  addBreakdownChart(dimensionName) {
+    let breakdownElement = this
+      .filterElement
+      .append('div')
+      .attr('class', `breakdown-${dimensionName}`);
+
+    let breakdownBars = breakdownElement.append('div')
+      .attr('class', `breakdown-bars ${dimensionName}`);
+
+    let breakdownTable = breakdownElement.append('table')
+      .attr('class', `table table-striped table-responsive breakdown-table ${dimensionName}`);
+
+    this.breakdown(dimensionName).forEach(segment => {
+      let className = segment.key.replace(/[ ']/g, '-');
+
+      breakdownBars.append('div')
+        .attr('class', `breakdown-bar ${className}`);
+
+      breakdownTable.append('tr')
+        .attr('class', `breakdown-row ${className}`);
+    });
+  }
+
+  breakdown(dimensionName) {
+    return this.dimensions[dimensionName]
+      .group()
+      .reduceCount()
+      .top(Infinity);
   }
 
   update() {
@@ -85,6 +119,38 @@ class FilterTable {
         `<td>${d.facility_name}</td>`,
         `<td>${this.distanceOfTimeInWords(lengthOfStay)}</td>`,
       ].join('');
+    });
+
+    this.filterLabels().forEach(dimensionName => {
+      let totalCount = this.dimensions[dimensionName]
+        .groupAll()
+        .reduceCount()
+        .value();
+
+      this.breakdown(dimensionName).forEach(segment => {
+        let breakdownBars = this.filterElement
+          .select(`.breakdown-bars.${dimensionName}`);
+
+        let breakdownTable = this.filterElement
+          .select(`.breakdown-table.${dimensionName}`);
+
+        let className = segment.key.replace(/[ ']/g, '-');
+
+        breakdownBars.selectAll(`.breakdown-bar.${className}`)
+          .style('flex', `0 1 ${this.percentage(segment.value, totalCount)}`);
+
+        let row = breakdownTable.select(`.breakdown-row.${className}`);
+
+        row.selectAll('th, td').remove();
+        row.append('th')
+          .text(segment.key);
+        row.append('td')
+          .attr('class', 'breakdown-value')
+          .text(segment.value);
+        row.append('td')
+          .attr('class', 'breakdown-percentage')
+          .text(this.percentage(segment.value, totalCount));
+      });
     });
   }
 
@@ -111,5 +177,15 @@ class FilterTable {
     if (distance_in_minutes < 1051199) { return 'about 1 year'; }
 
     return 'over ' + Math.floor(distance_in_minutes / 525960) + ' years';
+  }
+
+  percentage(partial, total) {
+    let percentageScale = d3.scaleLinear()
+      .domain([0, total])
+      .range([0, 100]);
+
+    let format = d3.format('d');
+
+    return format(percentageScale(partial)) + '%';
   }
 }

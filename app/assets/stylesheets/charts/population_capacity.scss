@@ -70,4 +70,12 @@ $warning-red: #dc0000;
   &:nth-child(7n + 5) th::before { background-color: $breakout-color-5; }
   &:nth-child(7n + 6) th::before { background-color: $breakout-color-6; }
   &:nth-child(7n + 7) th::before { background-color: $breakout-color-7; }
+
+  td {
+    width: 10%;
+  }
+
+  .breakdown-percentage {
+    text-align: right;
+  }
 }
