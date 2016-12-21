@@ -28,10 +28,7 @@ class FilterTable {
     this.dimensions.race = bookings.dimension(d => d.race);
     this.dimensions.lengthOfStay = bookings.dimension(this.lengthOfStay);
 
-    this.filterLabels().forEach(filter => {
-      this.addFilterButtons(filter);
-      this.addBreakdownChart(filter);
-    });
+    this.filterLabels().forEach(filter => this.addBreakdownChart(filter));
 
     this.body = this.table.append('tbody')
     this.update();
@@ -41,39 +38,14 @@ class FilterTable {
     return Object.keys(this.filters);
   }
 
-  addFilterButtons(dimensionName) {
-    let filterGroup = this
-      .filterElement
-      .append('div')
-      .attr('class', `filter-${dimensionName}`);
-
-    filterGroup.append('h3')
-      .text(`Filter by ${dimensionName}`)
-
-    this.filters[dimensionName].forEach((filterName) => {
-      filterGroup
-        .append('button')
-        .text(filterName)
-        .on('click', () => {
-          this.dimensions[dimensionName].filter(filterName);
-          this.update();
-        });
-    });
-
-    filterGroup
-      .append('button')
-      .text('all')
-      .on('click', () => {
-        this.dimensions[dimensionName].filterAll();
-        this.update();
-      })
-  }
-
   addBreakdownChart(dimensionName) {
     let breakdownElement = this
       .filterElement
       .append('div')
       .attr('class', `breakdown-${dimensionName}`);
+
+    breakdownElement.append('h3')
+      .text(`Filter by ${dimensionName}`);
 
     let breakdownBars = breakdownElement.append('div')
       .attr('class', `breakdown-bars ${dimensionName}`);
@@ -88,8 +60,23 @@ class FilterTable {
         .attr('class', `breakdown-bar ${className}`);
 
       breakdownTable.append('tr')
-        .attr('class', `breakdown-row ${className}`);
+        .attr('class', `breakdown-row ${className}`)
+        .on('click', () => {
+          this.filters[dimensionName][segment.key] = !this.filters[dimensionName][segment.key];
+          this.update();
+        });
     });
+
+    breakdownElement
+      .append('button')
+      .text(`Clear ${dimensionName} filters`)
+      .on('click', () => {
+        Object.keys(this.filters[dimensionName]).forEach(filterName => {
+          this.filters[dimensionName][filterName] = false;
+        });
+
+        this.update();
+      });
   }
 
   breakdown(dimensionName) {
@@ -100,6 +87,17 @@ class FilterTable {
   }
 
   update() {
+    Object.keys(this.filters).forEach(dimensionName => {
+      let values = Object
+        .keys(this.filters[dimensionName])
+        .map(d => this.filters[dimensionName][d]);
+
+      if(values.indexOf(true) == -1)
+        this.dimensions[dimensionName].filterAll();
+      else
+        this.dimensions[dimensionName].filterFunction(d => this.filters[dimensionName][d]);
+    });
+
     let update = this.body
       .selectAll('tr')
       .data(this.dimensions.lengthOfStay.top(Infinity));
@@ -140,6 +138,8 @@ class FilterTable {
           .style('flex', `0 1 ${this.percentage(segment.value, totalCount)}`);
 
         let row = breakdownTable.select(`.breakdown-row.${className}`);
+
+        row.classed('active', this.filters[dimensionName][segment.key]);
 
         row.selectAll('th, td').remove();
         row.append('th')

@@ -6,6 +6,7 @@ $breakout-color-5: #c34b63;
 $breakout-color-6: #6ecf99;
 $breakout-color-7: #3b68b0;
 $warning-red: #dc0000;
+$highlight-yellow: #ffff00;
 
 .active-bookings {
   stroke: black;
@@ -61,6 +62,10 @@ $warning-red: #dc0000;
     margin-right: 0.5em;
     vertical-align: middle;
     width: 1em;
+  }
+
+  &.active {
+    background-color: $highlight-yellow;
   }
 
   &:nth-child(7n + 1) th::before { background-color: $breakout-color-1; }

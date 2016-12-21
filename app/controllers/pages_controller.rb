@@ -26,12 +26,7 @@ class PagesController < ApplicationController
         active_bookings: @bookings.active.count
       },
       crossfilter_data: crossfilter_data(@active_bookings),
-      filter_options: {
-        status: Booking.pluck(:status).uniq,
-        location: Booking.pluck(:facility_name).uniq,
-        gender: Person.pluck(:gender).uniq,
-        race: Person.pluck(:race).uniq,
-      },
+      filters: filters,
     )
   end
 
@@ -54,5 +49,18 @@ class PagesController < ApplicationController
         :booking_date_time,
         :release_date_time,
       )
+  end
+
+  def filters
+    {
+      status: values_to_filters(Booking.pluck(:status)),
+      location: values_to_filters(Booking.pluck(:facility_name)),
+      gender: values_to_filters(Person.pluck(:gender)),
+      race: values_to_filters(Person.pluck(:race)),
+    }
+  end
+
+  def values_to_filters(db_values)
+    db_values.uniq.map { |value| [value, false] }.to_h
   end
 end
