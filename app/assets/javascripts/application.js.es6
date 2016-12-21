@@ -34,4 +34,11 @@ window.runApplication = () => {
     d3.select('.filters'),
   );
   filter.render()
+
+  const historicalData = gon.crossfilter_historical
+  const historical = new HistoricalChart(
+    historicalData,
+    d3.select('.historical')
+  );
+  historical.render()
 };
