@@ -25,9 +25,8 @@ class PagesController < ApplicationController
         },
         active_bookings: @bookings.active.count
       },
-      crossfilter_data: crossfilter_data(@active_bookings),
+      crossfilter_data: crossfilter_data(@bookings),
       filters: filters,
-      crossfilter_historical: crossfilter_data(@bookings)
     )
   end
 
