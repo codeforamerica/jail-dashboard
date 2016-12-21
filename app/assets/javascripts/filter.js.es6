@@ -88,13 +88,14 @@ class FilterTable {
 
   update() {
     Object.keys(this.filters).forEach(dimensionName => {
-      this.dimensions[dimensionName].filterAll();
+      let values = Object
+        .keys(this.filters[dimensionName])
+        .map(d => this.filters[dimensionName][d]);
 
-      Object.keys(this.filters[dimensionName]).forEach(filterName => {
-        if(this.filters[dimensionName][filterName]) {
-          this.dimensions[dimensionName].filter(filterName);
-        }
-      });
+      if(values.indexOf(true) == -1)
+        this.dimensions[dimensionName].filterAll();
+      else
+        this.dimensions[dimensionName].filterFunction(d => this.filters[dimensionName][d]);
     });
 
     let update = this.body
