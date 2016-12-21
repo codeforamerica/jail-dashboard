@@ -25,7 +25,7 @@ class PagesController < ApplicationController
         },
         active_bookings: @bookings.active.count
       },
-      crossfilter_data: crossfilter_data(@active_bookings),
+      crossfilter_data: crossfilter_data(@bookings),
       filters: filters,
     )
   end
@@ -35,8 +35,8 @@ class PagesController < ApplicationController
 
   private
 
-  def crossfilter_data(active_bookings)
-    active_bookings.
+  def crossfilter_data(bookings)
+    bookings.
       joins(:person).
       select(
         :jms_person_id,

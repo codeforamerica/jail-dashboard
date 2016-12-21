@@ -1,11 +1,30 @@
 class FilterTable {
   constructor(data, filters, tableElement, filterElement) {
-    this.data = data;
+    this.data = this.processDates(data);
     this.filters = filters;
     this.tableElement = tableElement;
     this.filterElement = filterElement;
 
     this.dimensions = {};
+    this.onUpdateCallbacks = [];
+    this.activeDateTime = new Date();
+  }
+
+  processDates(data) {
+    // pre-formatting for dates
+    data.forEach(function(p) {   
+      p.booking_date_time = new Date(p.booking_date_time);
+
+      // keep nulls null; else a new Date on null will set in 1969
+      if (p.release_date_time == null) {
+        p.release_date_time = null
+      }
+      else {
+        p.release_date_time = new Date(p.release_date_time);
+      }
+    });
+
+    return data;
   }
 
   render() {
@@ -26,7 +45,9 @@ class FilterTable {
     this.dimensions.location = bookings.dimension(d => d.facility_name);
     this.dimensions.gender = bookings.dimension(d => d.gender);
     this.dimensions.race = bookings.dimension(d => d.race);
-    this.dimensions.lengthOfStay = bookings.dimension(this.lengthOfStay);
+    this.dimensions.lengthOfStay = bookings.dimension(this.lengthOfStay);    
+    this.dimensions.bookingDateTime = bookings.dimension(d => d.booking_date_time);
+    this.dimensions.releaseDateTime = bookings.dimension(d => d.release_date_time);
 
     this.filterLabels().forEach(filter => this.addBreakdownChart(filter));
 
@@ -86,7 +107,12 @@ class FilterTable {
       .top(Infinity);
   }
 
+  onUpdate(callback) {
+     this.onUpdateCallbacks = this.onUpdateCallbacks.concat(callback);
+  }
+
   update() {
+    // update the crossfilter
     Object.keys(this.filters).forEach(dimensionName => {
       if(this.filtersAllInactive(dimensionName))
         this.dimensions[dimensionName].filterAll();
@@ -94,9 +120,21 @@ class FilterTable {
         this.dimensions[dimensionName].filterFunction(d => this.filters[dimensionName][d]);
     });
 
+    // call update callbacks with historical data
+    let selectedBookings = this.dimensions.lengthOfStay.top(Infinity);
+    this.onUpdateCallbacks.forEach(callback => callback(selectedBookings));
+
+    // collapse all the data down into the currently active ones
+    let currentDate = this.activeDateTime;
+    this.dimensions.bookingDateTime.filterFunction(d => d < currentDate);
+    this.dimensions.releaseDateTime.filterFunction(d => d == null || d > currentDate);
+
+    let selectedBookingsAtSinglePointInTime = this.dimensions.lengthOfStay.top(Infinity);
+    // tableCallback(selectedBookingsAtSinglePointInTime);
+
     let update = this.body
       .selectAll('tr')
-      .data(this.dimensions.lengthOfStay.top(Infinity));
+      .data(selectedBookingsAtSinglePointInTime);
 
     update.exit().remove();
 

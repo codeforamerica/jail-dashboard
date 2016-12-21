@@ -33,5 +33,13 @@ window.runApplication = () => {
     d3.select('.filtered-people'),
     d3.select('.filters'),
   );
-  filter.render()
+
+  const historical = new HistoricalChart(
+    d3.select('.historical')
+  );
+
+  // filter.onUpdate(historical.filtersUpdated.bind(historical));
+
+  filter.render();
+  // historical.render();
 };
