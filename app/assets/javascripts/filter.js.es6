@@ -88,11 +88,7 @@ class FilterTable {
 
   update() {
     Object.keys(this.filters).forEach(dimensionName => {
-      let values = Object
-        .keys(this.filters[dimensionName])
-        .map(d => this.filters[dimensionName][d]);
-
-      if(values.indexOf(true) == -1)
+      if(this.filtersAllInactive(dimensionName))
         this.dimensions[dimensionName].filterAll();
       else
         this.dimensions[dimensionName].filterFunction(d => this.filters[dimensionName][d]);
@@ -135,11 +131,21 @@ class FilterTable {
         let className = segment.key.replace(/[ ']/g, '-');
 
         breakdownBars.selectAll(`.breakdown-bar.${className}`)
-          .style('flex', `0 1 ${this.percentage(segment.value, totalCount)}`);
+          .style('flex', `0 1 ${this.percentage(segment.value, totalCount)}`)
+          .classed(
+              'active',
+              this.filtersAllInactive(dimensionName) ||
+              this.filters[dimensionName][segment.key]
+              );
 
         let row = breakdownTable.select(`.breakdown-row.${className}`);
 
-        row.classed('active', this.filters[dimensionName][segment.key]);
+        row
+          .classed(
+              'active',
+              this.filtersAllInactive(dimensionName) ||
+              this.filters[dimensionName][segment.key]
+              );
 
         row.selectAll('th, td').remove();
         row.append('th')
@@ -152,6 +158,13 @@ class FilterTable {
           .text(this.percentage(segment.value, totalCount));
       });
     });
+  }
+
+  filtersAllInactive(dimensionName) {
+    return Object
+      .keys(this.filters[dimensionName])
+      .map(d => this.filters[dimensionName][d])
+      .indexOf(true) == -1;
   }
 
   lengthOfStay(booking) {
