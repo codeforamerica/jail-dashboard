@@ -50,12 +50,12 @@ class FilterTable {
     filterGroup.append('h3')
       .text(`Filter by ${dimensionName}`)
 
-    this.filters[dimensionName].forEach((filterName) => {
+    Object.keys(this.filters[dimensionName]).forEach((filterName) => {
       filterGroup
         .append('button')
         .text(filterName)
         .on('click', () => {
-          this.dimensions[dimensionName].filter(filterName);
+          this.filters[dimensionName][filterName] = true;
           this.update();
         });
     });
@@ -64,9 +64,12 @@ class FilterTable {
       .append('button')
       .text('all')
       .on('click', () => {
-        this.dimensions[dimensionName].filterAll();
+        Object.keys(this.filters[dimensionName]).forEach(filterName => {
+          this.filters[dimensionName][filterName] = false;
+        });
+
         this.update();
-      })
+      });
   }
 
   addBreakdownChart(dimensionName) {
@@ -100,6 +103,16 @@ class FilterTable {
   }
 
   update() {
+    Object.keys(this.filters).forEach(dimensionName => {
+      this.dimensions[dimensionName].filterAll();
+
+      Object.keys(this.filters[dimensionName]).forEach(filterName => {
+        if(this.filters[dimensionName][filterName]) {
+          this.dimensions[dimensionName].filter(filterName);
+        }
+      });
+    });
+
     let update = this.body
       .selectAll('tr')
       .data(this.dimensions.lengthOfStay.top(Infinity));

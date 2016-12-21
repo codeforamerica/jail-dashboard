@@ -29,7 +29,7 @@ window.runApplication = () => {
   const peopleData = gon.crossfilter_data
   const filter = new FilterTable(
     peopleData,
-    gon.filter_options,
+    gon.filters,
     d3.select('.filtered-people'),
     d3.select('.filters'),
   );
