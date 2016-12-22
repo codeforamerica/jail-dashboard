@@ -38,8 +38,6 @@ window.runApplication = () => {
     d3.select('.historical')
   );
 
-  // filter.onUpdate(historical.filtersUpdated.bind(historical));
-
+  filter.onUpdate(historical.filtersUpdated.bind(historical));
   filter.render();
-  // historical.render();
 };
