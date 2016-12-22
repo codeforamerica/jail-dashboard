@@ -121,6 +121,10 @@ class FilterTable {
         this.dimensions[dimensionName].filterFunction(d => this.filters[dimensionName][d]);
     });
 
+    // clear time-bound filters
+    this.dimensions.bookingDateTime.filterAll();
+    this.dimensions.releaseDateTime.filterAll();
+
     // call update callbacks with historical data
     let selectedBookings = this.dimensions.lengthOfStay.top(Infinity);
     this.onUpdateCallbacks.forEach(callback => callback(selectedBookings));
