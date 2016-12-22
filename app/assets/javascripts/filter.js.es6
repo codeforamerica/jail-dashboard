@@ -61,6 +61,7 @@ class FilterTable {
 
       breakdownTable.append('tr')
         .attr('class', `breakdown-row ${className}`)
+        .attr('role', 'link')
         .on('click', () => {
           this.filters[dimensionName][segment.key] = !this.filters[dimensionName][segment.key];
           this.update();
