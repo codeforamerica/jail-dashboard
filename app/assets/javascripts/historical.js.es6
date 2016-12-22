@@ -21,7 +21,7 @@ class HistoricalChart {
       var dates = [counterDate];
 
       while (latestDate >= counterDate) {
-        week = counterDate.getDate() + 7
+        week = counterDate.getDate() + 7  
         counterDate = new Date(counterDate.setDate(++week));
         dates.push(counterDate);
       }
@@ -65,7 +65,6 @@ class HistoricalChart {
 
       function chart(selection) {
         selection.each(function (datasets) {
-
           var margin = {
               top: 20,
               right: 30,
@@ -74,45 +73,24 @@ class HistoricalChart {
             },
             innerwidth = width - margin.left - margin.right,
             innerheight = height - margin.top - margin.bottom;
-
           var x_scale = d3.scaleTime()
             .range([0, innerwidth])
-            .domain([d3.min(datasets, function (d) {
-                return d3.min(d.date);
-              }),
-              d3.max(datasets, function (d) {
-                return d3.max(d.date);
-              })
+            .domain([d3.min(datasets, d => d3.min(d.date)),
+              d3.max(datasets, d => d3.max(d.date))
             ]);
-
           var y_scale = d3.scaleLinear()
             .range([innerheight, 0])
-            .domain([d3.min(datasets, function (d) {
-                return d3.min(d.count);
-              }),
-              d3.max(datasets, function (d) {
-                return d3.max(d.count);
-              })
-            ]);
-
-
-
+            .domain([0, d3.max(datasets, d => d3.max(d.count))]);
           var x_axis = d3.axisBottom(x_scale);
-
           var y_axis = d3.axisLeft(y_scale);
-
-
-
           var draw_line = d3.line()
             .x(d => x_scale(d[0]))
             .y(d => y_scale(d[1]));
-
           var svg = d3.select(this)
             .attr('width', width)
             .attr('height', height)
             .append('g')
             .attr('transform', `translate(${margin.left},${margin.top})`);
-
 
           svg.append('g')
             .attr('class', 'x axis')
@@ -142,7 +120,6 @@ class HistoricalChart {
             .attr('d', d => draw_line(d))
             .attr('fill', 'white')
             .attr('stroke', 'lightseagreen');
-
         });
       }
 
