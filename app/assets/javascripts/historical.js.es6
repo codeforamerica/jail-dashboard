@@ -55,12 +55,12 @@ class HistoricalChart {
 
     var xy_chart = d3_xy_chart()
 
-    var svg = d3.select(".historical").append("svg")
+    var svg = d3.select('.historical').append('svg')
       .datum(data)
       .call(xy_chart);
 
     function d3_xy_chart() {
-      var width = document.getElementsByClassName("historical")[0].getBoundingClientRect().width,
+      var width = document.getElementsByClassName('historical')[0].getBoundingClientRect().width,
         height = 480;
 
       function chart(selection) {
@@ -108,40 +108,40 @@ class HistoricalChart {
             .y(d => y_scale(d[1]));
 
           var svg = d3.select(this)
-            .attr("width", width)
-            .attr("height", height)
-            .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`);
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', `translate(${margin.left},${margin.top})`);
 
 
-          svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + innerheight + ")")
+          svg.append('g')
+            .attr('class', 'x axis')
+            .attr('transform', 'translate(0,' + innerheight + ')')
             .call(x_axis)
-            .append("text")
-            .attr("dy", "-.71em")
-            .attr("x", innerwidth)
-            .style("text-anchor", "end");
+            .append('text')
+            .attr('dy', '-.71em')
+            .attr('x', innerwidth)
+            .style('text-anchor', 'end');
 
-          svg.append("g")
-            .attr("class", "y axis")
+          svg.append('g')
+            .attr('class', 'y axis')
             .call(y_axis)
-            .append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", "0.71em")
-            .style("text-anchor", "end");
+            .append('text')
+            .attr('transform', 'rotate(-90)')
+            .attr('y', 6)
+            .attr('dy', '0.71em')
+            .style('text-anchor', 'end');
 
-          var data_lines = svg.selectAll(".d3_xy_chart_line")
+          var data_lines = svg.selectAll('.d3_xy_chart_line')
             .data(datasets.map(d => d3.zip(d.date, d.count)))
-            .enter().append("g")
-            .attr("class", "d3_xy_chart_line");
+            .enter().append('g')
+            .attr('class', 'd3_xy_chart_line');
 
-          data_lines.append("path")
-            .attr("class", "line")
-            .attr("d", d => draw_line(d))
-            .attr("fill", "white")
-            .attr("stroke", "lightseagreen");
+          data_lines.append('path')
+            .attr('class', 'line')
+            .attr('d', d => draw_line(d))
+            .attr('fill', 'white')
+            .attr('stroke', 'lightseagreen');
 
         });
       }
@@ -167,7 +167,7 @@ class HistoricalChart {
   }
 
   redraw() {
-    var svg = document.getElementsByClassName("historical")[0];
+    var svg = document.getElementsByClassName('historical')[0];
     while (svg.firstChild) {
       svg.removeChild(svg.firstChild);
     }
