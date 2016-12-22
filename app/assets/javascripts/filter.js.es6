@@ -1,9 +1,9 @@
-class FilterTable {
-  constructor(data, filters, tableElement, filterElement) {
+class Filter {
+  constructor(data, filters, filterElement, tableCallback) {
     this.data = this.processDates(data);
     this.filters = filters;
-    this.tableElement = tableElement;
     this.filterElement = filterElement;
+    this.tableCallback = tableCallback;
 
     this.dimensions = {};
     this.onUpdateCallbacks = [];
@@ -28,17 +28,6 @@ class FilterTable {
   }
 
   render() {
-    this.table = this.tableElement.append('table')
-      .attr('class', 'table table-striped table-responsive');
-
-    let header = this.table.append('thead').append('tr');
-
-    header.append('th').text('Name');
-    header.append('th').text('JMS ID');
-    header.append('th').text('Status');
-    header.append('th').text('Location');
-    header.append('th').text('Length of Stay');
-
     var bookings = crossfilter(this.data);
     var all = bookings.groupAll();
     this.dimensions.status = bookings.dimension(d => d.status);
@@ -51,7 +40,6 @@ class FilterTable {
 
     this.filterLabels().forEach(filter => this.addBreakdownChart(filter));
 
-    this.body = this.table.append('tbody')
     this.update();
   }
 
@@ -134,29 +122,9 @@ class FilterTable {
     this.dimensions.bookingDateTime.filterFunction(d => d < currentDate);
     this.dimensions.releaseDateTime.filterFunction(d => d == null || d > currentDate);
 
+    // call update callbacks with current bookings
     let selectedBookingsAtSinglePointInTime = this.dimensions.lengthOfStay.top(Infinity);
-    // tableCallback(selectedBookingsAtSinglePointInTime);
-
-    let update = this.body
-      .selectAll('tr')
-      .data(selectedBookingsAtSinglePointInTime);
-
-    update.exit().remove();
-
-    let enter = update.enter()
-      .append('tr');
-
-    update.merge(enter).html(d => {
-      let lengthOfStay = this.lengthOfStay(d);
-
-      return [
-        `<td>${d.first_name} ${d.last_name}</td>`,
-        `<td>${d.jms_person_id}</td>`,
-        `<td>${d.status}</td>`,
-        `<td>${d.facility_name}</td>`,
-        `<td>${this.distanceOfTimeInWords(lengthOfStay)}</td>`,
-      ].join('');
-    });
+    this.tableCallback(selectedBookingsAtSinglePointInTime);
 
     this.filterLabels().forEach(dimensionName => {
       let totalCount = this.dimensions[dimensionName]

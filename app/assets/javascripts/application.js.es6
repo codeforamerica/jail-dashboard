@@ -26,16 +26,18 @@ window.runApplication = () => {
 
   d3.select(window).on('resize', () => chart.redraw(chartElement));
 
-  const peopleData = gon.crossfilter_data
-  const filter = new FilterTable(
-    peopleData,
-    gon.filters,
-    d3.select('.filtered-people'),
-    d3.select('.filters'),
-  );
+  const table = new Table(d3.select('.filtered-people'));
+  table.render();
 
   const historical = new HistoricalChart(
     d3.select('.historical')
+  );
+
+  const filter = new Filter(
+    gon.crossfilter_data,
+    gon.filters,
+    d3.select('.filters'),
+    d => table.update(d)
   );
 
   filter.onUpdate(data => historical.filtersUpdated(data));
