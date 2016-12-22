@@ -24,10 +24,43 @@ class PagesController < ApplicationController
           hard_cap: ENV.fetch("CAPACITY_HARD_CAP").to_i
         },
         active_bookings: @bookings.active.count
-      }
+      },
+      crossfilter_data: crossfilter_data(@bookings),
+      filters: filters,
     )
   end
 
   def healthcheck
+  end
+
+  private
+
+  def crossfilter_data(bookings)
+    bookings.
+      joins(:person).
+      select(
+        :jms_person_id,
+        :first_name,
+        :last_name,
+        :status,
+        :facility_name,
+        :gender,
+        :race,
+        :booking_date_time,
+        :release_date_time,
+      )
+  end
+
+  def filters
+    {
+      status: values_to_filters(Booking.pluck(:status)),
+      location: values_to_filters(Booking.pluck(:facility_name)),
+      gender: values_to_filters(Person.pluck(:gender)),
+      race: values_to_filters(Person.pluck(:race)),
+    }
+  end
+
+  def values_to_filters(db_values)
+    db_values.uniq.map { |value| [value, false] }.to_h
   end
 end

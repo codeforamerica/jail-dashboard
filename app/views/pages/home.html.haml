@@ -1,23 +1,12 @@
 .row
-  .col-md-12
+  .col-md-8
     .chart
+    .historical
+    .filtered-people
+  .col-md-4
+    .filters
 
-    .col-md-4
-      %h3 Demographics
-      %br
-
-      %h4 Gender
-      = render "grouping_table",
-        records: @active_people,
-        attribute: :gender,
-        html_class: 'demographics-gender'
-
-      %h4 Race
-      = render "grouping_table",
-        records: @active_people,
-        attribute: :race,
-        html_class: 'demographics-race'
-
+  .row
     .col-md-4
       %h3 Bookings Summary
       %br
@@ -26,13 +15,6 @@
         %tr
           %th Total # active bookings
           %td= @bookings.where(release_date_time: nil).count
-
-      %h4 Case Status
-
-      = render "grouping_table",
-        records: @active_bookings,
-        attribute: :status,
-        html_class: 'processing-status'
 
       %h4 Current Week
       %table.table.table-responsive.booking-stats
@@ -45,13 +27,6 @@
           %th #{released} (#{present_percent(released, bookings_one_week_ago)})
           %td people released
 
-      %h4 Location
-      = render "grouping_table",
-        records: @active_bookings,
-        attribute: :facility_name,
-        html_class: 'location'
-
-    .col-md-4
       %h3 Charges Summary
       %br
       %h4 By Category

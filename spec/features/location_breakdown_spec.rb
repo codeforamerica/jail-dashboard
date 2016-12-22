@@ -5,16 +5,16 @@ describe 'location' do
     login_as FactoryGirl.create(:user)
   end
 
-  it 'shows location breakdown of active bookings' do
+  it 'shows location breakdown of active bookings', :js do
     FactoryGirl.create(:booking, facility_name: 'Azkaban')
     FactoryGirl.create(:booking, facility_name: 'Alcatraz')
     FactoryGirl.create(:booking, :inactive, facility_name: 'Alcatraz')
 
     visit '/'
 
-    within('.location') do
-      expect(page).to have_css('tr', text: 'Alcatraz 1 50.0%')
-      expect(page).to have_css('tr', text: 'Azkaban 1 50.0%')
+    within('.filters') do
+      expect(page).to have_css('tr', text: 'Alcatraz 1 50%')
+      expect(page).to have_css('tr', text: 'Azkaban 1 50%')
     end
   end
 end

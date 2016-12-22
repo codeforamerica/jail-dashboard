@@ -37,6 +37,7 @@ gem 'activerecord-import'
 
 gem 'coffee-script-source', '1.8.0'
 
+gem 'rails-assets-crossfilter2', source: 'https://rails-assets.org'
 gem 'devise'
 gem 'devise_invitable'
 gem 'cancancan'
