@@ -21,7 +21,7 @@ class HistoricalChart {
       var dates = [counterDate];
 
       while (latestDate >= counterDate) {
-        week = counterDate.getDate() + 7  
+        week = counterDate.getDate() + 7;  
         counterDate = new Date(counterDate.setDate(++week));
         dates.push(counterDate);
       }
@@ -41,12 +41,12 @@ class HistoricalChart {
         bookingDateTime.filterFunction(d => d < currentDate);
         releaseDateTime.filterFunction(d => d == null || d > currentDate);
         counts.push(bookings.groupAll().reduceCount().value());
-        bookingDateTime.dispose()
-        releaseDateTime.dispose()
+        bookingDateTime.dispose();
+        releaseDateTime.dispose();
       });
       return counts;
     }
-    this.counts = getCounts()
+    this.counts = getCounts();
 
     var data = [{
       date: datesArray,

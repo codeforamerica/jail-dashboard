@@ -17,7 +17,7 @@ class FilterTable {
 
       // keep nulls null; else a new Date on null will set in 1969
       if (p.release_date_time == null) {
-        p.release_date_time = null
+        p.release_date_time = null;
       }
       else {
         p.release_date_time = new Date(p.release_date_time);
@@ -109,7 +109,7 @@ class FilterTable {
   }
 
   onUpdate(callback) {
-     this.onUpdateCallbacks = this.onUpdateCallbacks.concat(callback);
+    this.onUpdateCallbacks = this.onUpdateCallbacks.concat(callback);
   }
 
   update() {
