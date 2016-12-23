@@ -38,6 +38,7 @@ class PagesController < ApplicationController
   def crossfilter_data(bookings)
     bookings.
       joins(:person).
+      joins(:charges).
       select(
         :jms_person_id,
         :first_name,
@@ -48,6 +49,8 @@ class PagesController < ApplicationController
         :race,
         :booking_date_time,
         :release_date_time,
+        :category,
+        :description,
       )
   end
 
@@ -57,6 +60,8 @@ class PagesController < ApplicationController
       location: values_to_filters(Booking.pluck(:facility_name)),
       gender: values_to_filters(Person.pluck(:gender)),
       race: values_to_filters(Person.pluck(:race)),
+      category: values_to_filters(Charge.pluck(:category)),
+      description: values_to_filters(Charge.pluck(:description)),
     }
   end
 

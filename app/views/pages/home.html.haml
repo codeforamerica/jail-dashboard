@@ -27,20 +27,6 @@
           %th #{released} (#{present_percent(released, bookings_one_week_ago)})
           %td people released
 
-      %h3 Charges Summary
-      %br
-      %h4 By Category
-      = render "grouping_table",
-        records: @active_charges,
-        attribute: :category,
-        html_class: 'charge-categories'
-
-      %h4 By Type
-      = render "grouping_table",
-        records: @active_charges,
-        attribute: :description,
-        html_class: 'charge-types'
-
     .col-md-12.bonds
       %h3 People who didn't post bond
       %p Current inmates with $500 or smaller bonds
