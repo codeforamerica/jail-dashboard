@@ -66,7 +66,7 @@ class Filter {
       .attr('class', `table table-striped table-responsive breakdown-table ${dimensionName}`);
 
     this.breakdown(dimensionName).forEach(segment => {
-      let className = segment.key.replace(/[ '\/]/g, '-');
+      let className = this.classify(segment.key);
 
       breakdownBars.append('div')
         .attr('class', `breakdown-bar ${className}`);
@@ -90,6 +90,13 @@ class Filter {
 
         this.update();
       });
+  }
+
+  classify(string) {
+    // make sure it's a string
+    string = '' + string;
+
+    return string.replace(/[ '\/]/g, '-');
   }
 
   breakdown(dimensionName) {
@@ -142,7 +149,7 @@ class Filter {
         let breakdownTable = this.filterElement
           .select(`.breakdown-table.${dimensionName}`);
 
-        let className = segment.key.replace(/[ '\/]/g, '-');
+        let className = this.classify(segment.key);
 
         breakdownBars.selectAll(`.breakdown-bar.${className}`)
           .style('flex', `0 1 ${this.percentage(segment.value, totalCount)}`)

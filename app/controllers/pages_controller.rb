@@ -38,7 +38,8 @@ class PagesController < ApplicationController
   def crossfilter_data(bookings)
     bookings.
       joins(:person).
-      joins(:charges).
+      joins('LEFT JOIN charges ON charges.booking_id = bookings.jms_booking_id').
+      joins(:person).
       select(
         :jms_person_id,
         :first_name,
