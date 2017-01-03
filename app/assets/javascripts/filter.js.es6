@@ -30,11 +30,14 @@ class Filter {
   render() {
     var bookings = crossfilter(this.data);
     var all = bookings.groupAll();
+
     this.dimensions.status = bookings.dimension(d => d.status);
     this.dimensions.location = bookings.dimension(d => d.facility_name);
     this.dimensions.gender = bookings.dimension(d => d.gender);
     this.dimensions.race = bookings.dimension(d => d.race);
-    this.dimensions.lengthOfStay = bookings.dimension(this.lengthOfStay);    
+    this.dimensions.lengthOfStay = bookings.dimension(this.lengthOfStay);
+    this.dimensions.category = bookings.dimension(d => d.category);
+    this.dimensions.description = bookings.dimension(d => d.description);
     this.dimensions.bookingDateTime = bookings.dimension(d => d.booking_date_time);
     this.dimensions.releaseDateTime = bookings.dimension(d => d.release_date_time);
 
@@ -63,7 +66,7 @@ class Filter {
       .attr('class', `table table-striped table-responsive breakdown-table ${dimensionName}`);
 
     this.breakdown(dimensionName).forEach(segment => {
-      let className = segment.key.replace(/[ ']/g, '-');
+      let className = this.classify(segment.key);
 
       breakdownBars.append('div')
         .attr('class', `breakdown-bar ${className}`);
@@ -87,6 +90,13 @@ class Filter {
 
         this.update();
       });
+  }
+
+  classify(string) {
+    // make sure it's a string
+    string = '' + string;
+
+    return string.replace(/[ '\/]/g, '-');
   }
 
   breakdown(dimensionName) {
@@ -139,7 +149,7 @@ class Filter {
         let breakdownTable = this.filterElement
           .select(`.breakdown-table.${dimensionName}`);
 
-        let className = segment.key.replace(/[ ']/g, '-');
+        let className = this.classify(segment.key);
 
         breakdownBars.selectAll(`.breakdown-bar.${className}`)
           .style('flex', `0 1 ${this.percentage(segment.value, totalCount)}`)
