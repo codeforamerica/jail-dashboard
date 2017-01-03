@@ -48,6 +48,7 @@ class PopulationCapacityChart {
     const renderedWidth = targetWidth;
 
     const markerValues = objectValues(this.args.markers);
+    const markerLabels = objectValues(this.labels);
 
     const margin = { top: 20, right: 20, bottom: 60, left: 20 };
 
@@ -78,6 +79,7 @@ class PopulationCapacityChart {
 
     const markerAxis = d3.axisTop(xScale)
       .tickSize(height)
+      .tickFormat(d => { const i = markerValues.indexOf(d); return markerLabels[i]; })
       .tickValues(markerValues);
 
     const xAxis = d3.axisBottom(xScale);
