@@ -3,31 +3,8 @@
     .chart
     .historical
     .filtered-people
-  .col-md-4
-    .filters
 
-  .row
-    .col-md-4
-      %h3 Bookings Summary
-      %br
-
-      %table.table.table-striped.table-responsive
-        %tr
-          %th Total # active bookings
-          %td= @bookings.where(release_date_time: nil).count
-
-      %h4 Current Week
-      %table.table.table-responsive.booking-stats
-        %tr.current-week-booked
-          %th= @weekly_bookings.count
-          %td people booked within past week
-        %tr.current-week-released
-          - released = @weekly_releases.count
-          - bookings_one_week_ago = @active_bookings.count + released - @weekly_bookings.count
-          %th #{released} (#{present_percent(released, bookings_one_week_ago)})
-          %td people released
-
-    .col-md-12.bonds
+    .bonds
       %h3 People who didn't post bond
       %p Current inmates with $500 or smaller bonds
 
@@ -41,3 +18,25 @@
             %tr
               %th #{person.last_name}, #{person.first_name}
               %td= number_to_currency(person.active_booking.bond_total, precision: 0)
+
+  .col-md-4
+    .filters
+
+    %h3 Bookings Summary
+    %br
+
+    %table.table.table-striped.table-responsive
+      %tr
+        %th Total # active bookings
+        %td= @bookings.where(release_date_time: nil).count
+
+    %h4 Current Week
+    %table.table.table-responsive.booking-stats
+      %tr.current-week-booked
+        %th= @weekly_bookings.count
+        %td people booked within past week
+      %tr.current-week-released
+        - released = @weekly_releases.count
+        - bookings_one_week_ago = @active_bookings.count + released - @weekly_bookings.count
+        %th #{released} (#{present_percent(released, bookings_one_week_ago)})
+        %td people released
