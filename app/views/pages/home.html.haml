@@ -2,22 +2,22 @@
   .col-md-8
     .chart
     .historical
-    .filtered-people
+    .filtered-people.tidy
 
     .bonds
       %h3 People who didn't post bond
       %p Current inmates with $500 or smaller bonds
-
-      %table.table.table-striped.table-responsive
-        %thead
-          %tr
-            %th Name
-            %th Bond
-        %tbody
-          - @target_bond_people.each do |person|
+      .tidy
+        %table.table.table-striped.table-responsive
+          %thead
             %tr
-              %th #{person.last_name}, #{person.first_name}
-              %td= number_to_currency(person.active_booking.bond_total, precision: 0)
+              %th Name
+              %th Bond
+          %tbody
+            - @target_bond_people.each do |person|
+              %tr
+                %th #{person.last_name}, #{person.first_name}
+                %td= number_to_currency(person.active_booking.bond_total, precision: 0)
 
   .col-md-4
     .filters

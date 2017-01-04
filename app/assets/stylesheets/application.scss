@@ -16,6 +16,7 @@
 @import "charts/population_capacity";
 
 .tidy {
-  height: 600px;
-  overflow: scroll;
+  height: 400px;
+  margin-bottom: 3em;
+  overflow-y: scroll;
 }
